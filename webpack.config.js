@@ -6,11 +6,12 @@ const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
-  	'weipage/index': './src/js/weipage/index.js',
-    'weipage/list': './src/js/weipage/list.js',
-    'weipage/view': './src/js/weipage/view.js',
-    'weipage/mobile': './src/js/weipage/mobile.js',
-    'weipage/upload': './src/js/weipage/upload.js'
+  	'weipage/index': './src/weipage/index/index.js',
+    'weipage/editMobile': './src/weipage/editMobile/index.js',
+    'weipage/list': './src/weipage/list/index.js',
+    'weipage/view': './src/weipage/view/index.js',
+    'weipage/mobile': './src/weipage/mobile/index.js',
+    'weipage/upload': './src/weipage/upload/index.js'
   },
   devtool: 'inline-source-map',
   plugins: [
@@ -24,7 +25,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "index.html",
-        template: path.resolve(__dirname, ".", "./src/html/index.html"),
+        template: path.resolve(__dirname, ".", "./src/index/index.html"),
         chunks: [""],
         minify: {
           collapseWhitespace: true
@@ -32,7 +33,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "login.html",
-        template: path.resolve(__dirname, ".", "./src/html/login.html"),
+        template: path.resolve(__dirname, ".", "./src/login/index.html"),
         chunks: [""],
         minify: {
           collapseWhitespace: true
@@ -40,15 +41,23 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "weipage/index.html",
-        template: path.resolve(__dirname, ".", "./src/html/weipage/index.html"),
+        template: path.resolve(__dirname, ".", "./src/weipage/index/index.html"),
         chunks: ["weipage/index"],
         minify: {
           collapseWhitespace: true
         }
       }),
       new HtmlWebpackPlugin({
+        filename: "weipage/editMobile.html",
+        template: path.resolve(__dirname, ".", "./src/weipage/editMobile/index.html"),
+        chunks: ["weipage/editMobile"],
+        minify: {
+          collapseWhitespace: true
+        }
+      }),
+      new HtmlWebpackPlugin({
         filename: "weipage/list.html",
-        template: path.resolve(__dirname, ".", "./src/html/weipage/list.html"),
+        template: path.resolve(__dirname, ".", "./src/weipage/list/index.html"),
         chunks: ["weipage/list"],
         minify: {
           collapseWhitespace: true
@@ -56,7 +65,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "weipage/view.html",
-        template: path.resolve(__dirname, ".", "./src/html/weipage/view.html"),
+        template: path.resolve(__dirname, ".", "./src/weipage/view/index.html"),
         chunks: ["weipage/view"],
         minify: {
           collapseWhitespace: true
@@ -64,7 +73,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "weipage/mobile.html",
-        template: path.resolve(__dirname, ".", "./src/html/weipage/mobile.html"),
+        template: path.resolve(__dirname, ".", "./src/weipage/mobile/index.html"),
         chunks: ["weipage/mobile"],
         minify: {
           collapseWhitespace: true
@@ -72,7 +81,7 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         filename: "weipage/upload.html",
-        template: path.resolve(__dirname, ".", "./src/html/weipage/upload.html"),
+        template: path.resolve(__dirname, ".", "./src/weipage/upload/index.html"),
         chunks: ["weipage/upload"],
         minify: {
           collapseWhitespace: true

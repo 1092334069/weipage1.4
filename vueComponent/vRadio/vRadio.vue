@@ -92,11 +92,11 @@
 		width:16px;
 		height:16px;
 		-webkit-appearance: none;
-		background-image: url(../../src/img/icon-radio.png);
+		background-image: url(../../assets/img/weipage/icon-radio.png);
 		background-size: 100% 100%;
 		vertical-align: middle;
 	}
 	input[type='radio'][checked='checked'] {
-		background-image: url(../../src/img/icon-radio-current.png);
+		background-image: url(../../assets/img/weipage/icon-radio-current.png);
 	}
 </style>

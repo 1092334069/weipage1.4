@@ -82,7 +82,7 @@
 		cursor:pointer;
 	}
 	.upload-btn.default{
-		background-image:url('../../src/img/icon-upload.png');
+		background-image:url('../../assets/img/weipage/icon-upload.png');
 		background-size:100% 100%;
 	}
 	.upload-btn img{

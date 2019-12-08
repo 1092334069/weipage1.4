@@ -1,11 +1,6 @@
-import panelView from './view.vue'
 import panelBaseForm from './baseForm.vue'
 import panelStyleForm from './styleForm.vue'
 import panelEventForm from './eventForm.vue'
-
-panelView.install = function(Vue){
-	Vue.component(panelView.name, panelView)
-}
 
 panelBaseForm.install = function(Vue) {
 	Vue.component(panelBaseForm.name, panelBaseForm)
@@ -20,7 +15,6 @@ panelEventForm.install = function(Vue) {
 }
 
 export default {
-	panelView,
 	panelBaseForm,
 	panelStyleForm,
 	panelEventForm

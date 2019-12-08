@@ -208,7 +208,7 @@
 	.add-module{
 		width:40px;
 		height:40px;
-		background-image:url('../../src/img/icon-add.png');
+		background-image:url('../../assets/img/weipage/icon-add.png');
 		background-size:24px 24px;
 		background-repeat:no-repeat;
 		background-position:center;
@@ -250,7 +250,7 @@
 	.delete-module{
 		width:40px;
 		height:40px;
-		background-image:url('../../src/img/icon-delete.png');
+		background-image:url('../../assets/img/weipage/icon-delete.png');
 		background-size:24px 24px;
 		background-repeat:no-repeat;
 		background-position:center;

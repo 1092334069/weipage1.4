@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			[v-cloak]{
+				opacity:0;
+			}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<script src="../../assets/js/jquery-1.12.4.min.js"></script>
+		<script src="../../assets/js/vue.js"></script>
+	</head>
+	<body>
+		<div id="weipage" class="weipage" v-cloak>
+			<template v-for="item in pluginList">
+				<panel-view
+					v-if="item.pluginType == 'panel'"
+					:view-data="item"
+					:select-plugin-id="selectPluginId">
+				</panel-view>
+				<text-view
+					v-else-if="item.pluginType == 'text'"
+					:view-data="item"
+					:select-plugin-id="selectPluginId">
+				</text-view>
+				<image-view
+					v-else-if="item.pluginType == 'image'"
+					:view-data="item"
+					:select-plugin-id="selectPluginId">
+				</image-view>
+				<form-view 
+					v-else-if="item.pluginType == 'form'"
+					:view-data="item"
+					:select-plugin-id="selectPluginId">
+				</form-view>
+			</template>
+		</div>
+	</body>
+</html>

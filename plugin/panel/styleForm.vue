@@ -212,7 +212,7 @@
 	.form-group .form-trigger{
 		width:20px;
 		height:20px;
-		background-image:url('../../src/img/icon-more.png');
+		background-image:url('../../assets/img/weipage/icon-more.png');
 		background-size:100% 100%;
 		position:absolute;
 		right:10px;
