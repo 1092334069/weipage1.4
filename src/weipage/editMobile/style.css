@@ -17,3 +17,16 @@ body{
 .plugin.drop{
 	opacity:0.5;
 }
+.plugin .drop-icon{
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:move;
+}
+.plugin .resize-icon{
+	position:absolute;
+	bottom:0;
+	right:0;
+	transform:rotate(90deg);
+	cursor:se-resize;
+}
