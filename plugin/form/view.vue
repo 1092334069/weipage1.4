@@ -1,9 +1,9 @@
 <template>
 	<div class="form plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId">
-		<select v-if="viewData.base.type === 'select'" :style="parseFormStyle()">
+		<select v-if="viewData.base.type === 'select'" :style="parseNormalStyle()">
 			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
 		</select>
-		<input v-else :style="parseFormStyle()" :value="viewData.base.data" />
+		<input v-else :style="parseNormalStyle()" :value="viewData.base.data" />
 		<Icon size="12" class="drop-icon" type="md-move" />
 	</div>
 </template>

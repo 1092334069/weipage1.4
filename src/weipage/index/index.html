@@ -71,15 +71,10 @@
 					</form-base-form>
 				</template>
 				<template v-if="selectForm == 'style'">
-					<panel-style-form
-						v-if="editForm.pluginType == 'panel'"
+					<style-form
 						:form-data="editForm.style"
 						@select-image="selectImage">
-					</panel-style-form>
-					<form-style-form
-						v-else-if="editForm.pluginType == 'form'"
-						:form-data="editForm.style">
-					</form-style-form>
+					</style-form>
 				</template>
 				<template v-if="selectForm == 'event'">
 					<panel-event-form

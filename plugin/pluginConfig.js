@@ -10,27 +10,7 @@ const pluginConfig = {
 		},
 		style: {
 			width: 375,
-			height: 50,
-			margin: 0,
-			padding: 0,
-			borderRadius: 0,
-			transformRotate: 0,
-			border: 'none',
-			borderWidth: 1,
-			borderStyle: 'solid',
-			borderColor: '#e5e5e5',
-			backgroundColor: '',
-			backgroundImage: '',
-			position: 'relative',
-			top: 0,
-			left: 0,
-			display: 'block',
-			textAlign: 'left',
-			fontSize: 12,
-			color: '#333333',
-			lineHeight: 18,
-			fontWeight: 'normal',
-			fontStyle: 'normal'
+			height: 50
 		},
 		event: {
 			eventList: []
@@ -43,6 +23,9 @@ const pluginConfig = {
 			name: '文本',
 			data: '',
 			actionList: []
+		},
+		style: {
+			
 		}
 	},
 	image: {
@@ -50,8 +33,10 @@ const pluginConfig = {
 		base: {
 			name: '图片',
 			data: '',
-			width: 100,
 			actionList: []
+		},
+		style: {
+			width: 100
 		}
 	},
 	form: {
@@ -67,11 +52,7 @@ const pluginConfig = {
 		},
 		style: {
 			width: 375,
-			height: 40,
-			fontSize: 14,
-			color: '#333333',
-			backgroundColor: '',
-			backgroundImage: ''
+			height: 40
 		}
 	}
 }

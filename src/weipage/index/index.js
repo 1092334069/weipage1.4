@@ -12,17 +12,9 @@ import '../../../assets/vue'
 import { commonAction } from '../../../assets/js/commonAction.js'
 import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from '../../../assets/js/weipage/formAction.js'
 import { createPlugin } from '../../../plugin/pluginAction.js'
-import { dropAction } from '../../../assets/js/weipage/dropAction.js'
 import { interfaceAction } from '../../../assets/js/weipage/interfaceAction.js'
 import { imageAction } from '../../../assets/js/weipage/imageAction.js'
-import { viewAction } from '../../../assets/js/weipage/viewAction.js'
 import { weipageAction } from '../../../assets/js/weipage/weipageAction.js'
-
-// 更新预览页面数据
-function uploadPluginList(pluginList) {
-	var weipageViewWindow = $('#weipageView')[0].contentWindow
-	weipageViewWindow.uploadPluginList(pluginList)
-}
 
 // 回调响应
 const callbackAction = {
@@ -114,11 +106,12 @@ var weipage = new Vue({
 		selectPlugin(pluginId) {
 			this.changeFormTab('base')
 			this.selectPluginId = pluginId
+			weipageViewSelectPluginId()
 		},
 		insertPlugin(pluginType) {
 			const plugin = createPlugin(pluginType)
 			if (plugin) {
-				this.selectPluginId = plugin.pluginId
+				this.selectPlugin(plugin.pluginId)
 				this.pluginList.push(plugin)
 			}
 		},
@@ -282,29 +275,10 @@ var weipage = new Vue({
 		weipageShowView() {
 			window.location.href = `/weipage/view?weipageId=${this.weipageId}`
 		}
-	}
-})
-
-// 拖拽初始化
-dropAction.init({
-	mouseDownCallback: (pluginId) => {
-		weipage.selectPlugin(pluginId)
 	},
-	mouseUpCallback: (res) => {
-		viewAction.buildList()
-		const ret = viewAction.operationView(res)
-		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
-	},
-	resizeCallback: (pluginId, res) => {
-		console.log(pluginId)
-		if (pluginId && res) {
-			const plugin = pluginSearch(weipage, pluginId)
-			if (res.width && res.width > 0) {
-				plugin.style.width = res.width
-			}
-			if (res.height && res.height > 0) {
-				plugin.style.height = res.height
-			}
+	watch: {
+		pluginList(val) {
+			weipageViewPluginList()
 		}
 	}
 })
@@ -323,8 +297,6 @@ if (weipageId) {
 			weipage.weipage = res.data.weipage
 			weipage.pluginList = res.data.pluginList
 			weipage.interfaceTree = res.data.interfaceTree
-
-			uploadPluginList(res.data.pluginList)
 		}
 	})
 }
@@ -350,3 +322,32 @@ $('#file').on('change', () => {
 		}
 	})
 })
+
+/*
+*	操作子iframe
+*/
+// 更新预览页面数据
+function weipageViewPluginList() {
+	var weipageViewWindow = $('#weipageView')[0].contentWindow
+	weipageViewWindow.uploadPluginList(weipage.pluginList)
+}
+// 选中插件id
+function weipageViewSelectPluginId() {
+	var weipageViewWindow = $('#weipageView')[0].contentWindow
+	weipageViewWindow.selectPluginId(weipage.selectPluginId)
+}
+
+/*
+*	被子iframe操作
+*/
+window.pluginOperateAction = {
+	selectPlugin: (pluginId) => {
+		weipage.selectPlugin(pluginId)
+	},
+	pluginMove: (ret) => {
+		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
+	},
+	pluginSearch: (pluginId) => {
+		return pluginSearch(weipage, pluginId)
+	}
+}

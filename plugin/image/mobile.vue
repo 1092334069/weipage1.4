@@ -1,5 +1,5 @@
 <template>
-	<div class="image plugin" :data-id="viewData.pluginId" :style="parseImageStyle()">
+	<div class="image plugin" :data-id="viewData.pluginId" :style="parseNormalStyle()">
 		<img v-if="parseBaseData()" :src="parseBaseData()" />
 	</div>
 </template>

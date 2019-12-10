@@ -1,7 +1,7 @@
 <template>
 	<div class="panel plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parsePanelStyle()">
 		<template v-if="viewData.base.type == 'normal' || viewData.base.type == 'swiper'">
-			<div class="panel-item" :class="viewData.base.type" :style="parsePanelItemStyle()">
+			<div class="panel-item" :class="viewData.base.type" :style="parseNormalStyle()">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
@@ -11,7 +11,7 @@
 			</div>
 		</template>
 		<template v-else>
-			<div class="panel-item" :class="viewData.base.type" :style="parsePanelItemStyle()">
+			<div class="panel-item" :class="viewData.base.type" :style="parseNormalStyle()">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
@@ -19,7 +19,7 @@
 					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :select-plugin-id="selectPluginId"></form-view>
 				</template>
 			</div>
-			<div class="panel-item copy" :class="viewData.base.type" :style="parsePanelItemStyle()">
+			<div class="panel-item copy" :class="viewData.base.type" :style="parseNormalStyle()">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
