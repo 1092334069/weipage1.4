@@ -94,7 +94,10 @@ var weipage = new Vue({
 			interfaceTree:[],
 
 			// 表单树
-			formTreeModel: false
+			formTreeModel: false,
+
+			// 	样式框
+			styleModel: false
 		}
 	},
 	computed: {
@@ -207,6 +210,13 @@ var weipage = new Vue({
 		imageModelSelect(url) {
 			callbackAction.selectImage(url)
 			this.closeImageModel()
+		},
+		openStyleModel() {
+			this.styleModel = true
+		},
+		selectStyle(option) {
+			let plugin = pluginSearch(this, this.selectPluginId)
+			plugin.style[option.key] = option.value
 		},
 		uploadImage() {
 			$('#file').click()

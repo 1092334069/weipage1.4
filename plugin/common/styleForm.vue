@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div v-for="(val, key, index) in formData" class="form">
-			<v-color v-if="getFormForm(key) === 'color'" :lable="getFormLabel(key)" :formData="formData" :name="key"></v-color>
-			<v-image v-else-if="getFormForm(key) === 'image'" :lable="getFormLabel(key)" :formData="formData" :name="key" @selectImage="selectImage"></v-image>
-			<v-text v-else :lable="getFormLabel(key)" :formData="formData" :name="key"></v-text>
-		</div>
-		<div class="more-style">
+		<Form ref="styleForm" :label-width="80">
+			<FormItem v-for="(val, key, index) in formData" :label="getFormLabel(key)">
+				<Input v-model="formData[key]"></Input>
+			</FormItem>
+		</Form>
+		<div class="more-style" @click="openStyleModel">
 			<Icon type="ios-add-circle-outline" size="24" />
 			<span>更多样式</span>
 		</div>
@@ -43,6 +43,9 @@
 					return styleConfig[key].form
 				}
 				return 'text'
+			},
+			openStyleModel: function() {
+				this.$emit('open-style-model')
 			}
 		}
 	}

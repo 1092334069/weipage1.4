@@ -232,6 +232,7 @@ function parseLayerStyle(layerCssList) {
 function getArtboardItem(data, artboardId) {
 	for (var i = 0; i < data.layerGroup.length; i++) {
 		if (data.layerGroup[i].id === artboardId) {
+			data.layerGroup[i].width = parseInt(data.layerGroup[i].width)
 			return data.layerGroup[i]
 		}
 	}

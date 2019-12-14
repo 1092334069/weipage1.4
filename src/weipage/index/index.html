@@ -73,6 +73,7 @@
 				<template v-if="selectForm == 'style'">
 					<style-form
 						:form-data="editForm.style"
+						@open-style-model="openStyleModel"
 						@select-image="selectImage">
 					</style-form>
 				</template>
@@ -169,6 +170,16 @@
 					:plugin-list="pluginList"
 					@form-tree-select="formTreeSelect">
 				</form-tree>
+			</Modal>
+
+			<Modal
+				v-model="styleModel"
+				title="选择样式"
+				width="750"
+				:footer-hide="true">
+				<style-selector
+					@select-style="selectStyle"
+				></style-selector>
 			</Modal>
 		</div>
 	</body>
