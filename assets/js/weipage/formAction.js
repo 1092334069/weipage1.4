@@ -52,11 +52,6 @@ const formAction = {
 	}
 }
 
-function pluginUpdate(res, formData){
-	const keyList = formAction.parseKeyList(res.pname, res.name)
-	formAction.changePluginData(0, keyList, formData, res.value)
-}
-
 function pluginSearch(weipage, pluginId) {
 	if (weipage.pluginList.length) {
 		return formAction.searchPluginDeep(0, weipage, pluginId)
@@ -152,7 +147,6 @@ function formTreeSelect(weipage, pluginId, key) {
 }
 
 export {
-	pluginUpdate,
 	pluginSearch,
 	pluginMove,
 	pluginRemove,

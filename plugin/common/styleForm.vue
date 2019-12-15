@@ -1,8 +1,9 @@
 <template>
-	<div>
+	<div class="form">
 		<Form ref="styleForm" :label-width="80">
 			<FormItem v-for="(val, key, index) in formData" :label="getFormLabel(key)">
-				<Input v-model="formData[key]"></Input>
+				<ColorPicker v-if="key === 'color' || key === 'backgroundColor'" v-model="formData[key]" alpha />
+				<Input v-else v-model="formData[key]"></Input>
 			</FormItem>
 		</Form>
 		<div class="more-style" @click="openStyleModel">
@@ -52,9 +53,12 @@
 </script>
 
 <style scoped>
+	.form{
+		padding: 20px 40px 0 0;
+	}
 	.more-style{
 		cursor: pointer;
-		margin: 10px 86px;
+		margin: 0 78px 20px;
 		display: inline-block;
 	}
 </style>

@@ -10,7 +10,7 @@ import '../../../plugin'
 import '../../../assets/vue'
 
 import { commonAction } from '../../../assets/js/commonAction.js'
-import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from '../../../assets/js/weipage/formAction.js'
+import { pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from '../../../assets/js/weipage/formAction.js'
 import { createPlugin } from '../../../plugin/pluginAction.js'
 import { interfaceAction } from '../../../assets/js/weipage/interfaceAction.js'
 import { imageAction } from '../../../assets/js/weipage/imageAction.js'
@@ -102,7 +102,8 @@ var weipage = new Vue({
 	},
 	computed: {
 		editForm() {
-			return pluginSearch(this, this.selectPluginId)
+			const plugin = this.getSelectPlugin()
+			return plugin
 		}
 	},
 	methods: {
@@ -215,8 +216,10 @@ var weipage = new Vue({
 			this.styleModel = true
 		},
 		selectStyle(option) {
-			let plugin = pluginSearch(this, this.selectPluginId)
-			plugin.style[option.key] = option.value
+			let plugin = this.getSelectPlugin()
+			let style = JSON.parse(JSON.stringify(plugin.style))
+			style[option.key] = option.value
+			plugin.style = style
 		},
 		uploadImage() {
 			$('#file').click()
