@@ -3,6 +3,8 @@ import pluginTree from './pluginTree.vue'
 import interfaceTree from './interfaceTree.vue'
 import interfaceChildTree from './interfaceChildTree.vue'
 import styleSelector from './styleSelector.vue'
+import imageUpload from './imageUpload.vue'
+import inputSource from './inputSource.vue'
 
 formTree.install = function(Vue) {
 	Vue.component(formTree.name, formTree)
@@ -24,8 +26,18 @@ styleSelector.install = function(Vue) {
 	Vue.component(styleSelector.name, styleSelector)
 }
 
+imageUpload.install = function(Vue) {
+	Vue.component(imageUpload.name, imageUpload)
+}
+
+inputSource.install = function(Vue) {
+	Vue.component(inputSource.name, inputSource)
+}
+
 Vue.use(formTree)
 Vue.use(pluginTree)
 Vue.use(interfaceTree)
 Vue.use(interfaceChildTree)
 Vue.use(styleSelector)
+Vue.use(imageUpload)
+Vue.use(inputSource)

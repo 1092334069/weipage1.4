@@ -1,35 +1,39 @@
 <template>
-	<div class="plugin-form">
-		<div class="form">
-			<v-text lable="名称" :formData="formData" name="name" size="l"></v-text>
-		</div>
-		<div class="form">
-			<v-radio lable="类型" :options="typeList" :formData="formData" name="type"></v-radio>
-		</div>
+	<div>
+		<Form :label-width="80">
+			<FormItem label="名称">
+				<Input v-model="formData.name"></Input>
+			</FormItem>
+			<FormItem label="类型">
+				<RadioGroup v-model="formData.type">
+					<Radio label="normal">普通</Radio>
+					<Radio label="list">列表</Radio>
+					<Radio label="waterfall">瀑布流</Radio>
+					<Radio label="swiper">轮播</Radio>
+					<Radio label="slider">滑块</Radio>
+				</RadioGroup>
+			</FormItem>
+		</Form>
 		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
-		<form ref="actionForm">
-			<div class="form-list">
-				<div class="form-lable">属性：</div>
+		<Form :label-width="80">
+			<FormItem label="属性">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.attrList" @click="selectAttr(index)">{{item.name}}</div>
-				<div class="add-module" @click="addAttr"></div>
-			</div>
-			<div class="sub-form-list" v-if="formData.attrList && formData.attrList.length">
-				<hr/>
-				<template v-for="(item,index) in formData.attrList" v-if="attrSelectIndex === index">
-					<div class="delete-module" @click="deleteAttr"></div>
-					<div class="form">
-						<v-text lable="属性键" :formData="item" name="key" placeholder="请输入字母"></v-text>
-					</div>
-					<div class="form">
-						<div class="form-perch">
-							<span class="lable">属性值：</span>
-							<div class="perch-btn" @click="selectAttrValue(formData.attrList, index)">{{item.name}}</div>
-						</div>
-					</div>
-				</template>
-				<hr/>
-			</div>
-		</form>
+				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAttr" />
+			</FormItem>
+		</Form>
+		<div v-if="formData.attrList && formData.attrList.length">
+			<hr/>
+			<Form v-for="(item,index) in formData.attrList" v-if="attrSelectIndex === index" :key="index" :label-width="80">
+				<Icon type="ios-close-circle-outline" size="24" @click="deleteAttr" />
+				<FormItem label="属性键">
+					<Input v-model="item.key" placeholder="请输入字母"></Input>
+				</FormItem>
+				<FormItem label="属性值">
+					<div class="perch-btn" @click="selectAttrValue(formData.attrList, index)">{{item.name}}</div>
+				</FormItem>
+			</Form>
+			<hr/>
+		</div>
 	</div>
 </template>
 
@@ -49,22 +53,6 @@
 		data () {
 		    return {
 		    	attrSelectIndex: 0,
-				typeList: [{
-					label: '普通',
-					value: 'normal'
-				},{
-					label: '列表',
-					value: 'list'
-				},{
-					label: '瀑布流',
-					value: 'waterfall'
-				},{
-					label: '轮播',
-					value: 'swiper'
-				},{
-					label: '滑块',
-					value: 'slider'
-				}],
 				actionKeyList: [{
 					label: '数据',
 					value: 'base.data',
@@ -198,5 +186,23 @@
 </script>
 
 <style>
-
+	.form-item{
+		padding:0 10px;
+		margin-right:10px;
+		border-radius:4px;
+		height:40px;
+		line-height:40px;
+		background-color:#fff;
+		display:inline-block;
+		border:1px solid #fff;
+		float:left;
+		cursor:pointer;
+	}
+	.form-item.current{
+		border:1px solid #138ed4;
+	}
+	.add-btn{
+		margin-top: 10px;
+		cursor: pointer;
+	}
 </style>

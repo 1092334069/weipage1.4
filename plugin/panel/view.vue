@@ -61,12 +61,9 @@
 	.panel{
 		overflow:hidden;
 		position:relative;
-	}
-	.panel .panel{
 		display:inline-block;
 	}
 	.panel .panel-item{
-		position:relative;
 		background-size:100% auto;
 		background-repeat:no-repeat;
 	}

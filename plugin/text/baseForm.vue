@@ -1,11 +1,13 @@
 <template>
 	<div>
-		<div class="form">
-			<v-text lable="名称" :formData="formData" name="name" size="l"></v-text>
-		</div>
-		<div class="form">
-			<v-text lable="默认值" :formData="formData" name="data" size="xl"></v-text>
-		</div>
+		<Form :label-width="80">
+			<FormItem label="名称">
+				<Input v-model="formData.name"></Input>
+			</FormItem>
+			<FormItem label="默认值">
+				<Input v-model="formData.data"></Input>
+			</FormItem>
+		</Form>
 		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
 	</div>
 </template>

@@ -1,14 +1,24 @@
 <template>
 	<div>
-		<v-select v-if="type === 'select'" :lable="lable" :options="inputOptions" :formData="inputForm" name="data"></v-select>
-		<v-text v-else :lable="lable" :formData="inputForm" name="data"></v-text>
-		<v-select :lableWidth="0" :options="sourceOptions" :formData="inputForm" name="source"></v-select>
+		<Form :label-width="80">
+			<FormItem :label="lable">
+				<Select v-if="type === 'select'" v-model="formData.name">
+					<Option v-for="option in inputOptions" :value="option.value" :key="option.value">{{option.label}}</Option>
+				</Select>
+				<Input v-else v-model="formData.name"></Input>
+			</FormItem>
+			<FormItem label="">
+				<Select v-model="inputForm.source">
+					<Option v-for="option in sourceOptions" :value="option.value" :key="option.value">{{option.label}}</Option>
+				</Select>
+			</FormItem>
+		</Form>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: "vInputSource",
+		name: "inputSource",
 		props: {
 			formData: {
 				type: Object,

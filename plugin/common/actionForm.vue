@@ -1,47 +1,52 @@
 <template>
-	<form>
-		<div class="form-list">
-			<div class="form-lable">响应：</div>
-			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
-			<div class="add-module" @click="addAction"></div>
-		</div>
-		<div class="sub-form-list" v-if="formData.actionList && formData.actionList.length">
+	<div>
+		<Form :label-width="80">
+			<FormItem label="响应">
+				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
+				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAction" />
+			</FormItem>
+		</Form>
+		<div v-if="formData.actionList && formData.actionList.length">
 			<hr/>
-			<template v-for="(item,index) in formData.actionList" v-if="selectIndex === index">
-				<div class="delete-module" @click="deleteAction"></div>
-				<div class="form">
-					<v-text lable="响应名" :formData="item" name="name"></v-text>
-				</div>
-				<div class="form">
-					<v-select lable="响应键" :options="actionKeyList" :formData="item" name="key"></v-select>
-				</div>
-				<div class="form">
-					<v-radio lable="响应条件" :options="actionConditionList" :formData="item" name="condition"></v-radio>
-				</div>
-				<div class="form">
-					<v-radio lable="响应类型" :options="actionTypeList" :formData="item" name="type" @formChange="actionTypeChange"></v-radio>
-				</div>
-				<div class="form form-short" v-if="item.type === 'static'">
-					<v-number v-if="actionKeyType === 'number'" lable="响应值" :formData="item" name="value"></v-number>
-					<v-color v-else-if="actionKeyType === 'color'" lable="响应值" :formData="item" name="value"></v-color>
-					<v-image v-else-if="actionKeyType === 'image'" lable="响应值" :formData="item" name="value" @selectImage="selectImage"></v-image>
-					<v-select v-else-if="actionKeyType === 'select'" lable="响应值" :options="actionValueOptions" :formData="item" name="value"></v-select>
-					<v-four-sides v-else-if="actionKeyType === 'fourSides'" lable="响应值" :formData="item" name="value"></v-four-sides>
-					<v-text v-else lable="响应值" :formData="item" name="value"></v-text>
-				</div>
-				<div class="form" v-else-if="item.type === 'interface'">
-					<div class="action-interface">
-						<span class="lable">响应值：</span>
-						<div class="interface-btn" @click="selectActionValue(item)">{{item.value.name}}</div>
-					</div>
-				</div>
-				<div class="form" v-else>
-					<v-text lable="响应值" :formData="item" size="l" name="value"></v-text>
-				</div>
-			</template>
+			<Form v-for="(item,index) in formData.actionList" v-if="selectIndex === index" :key="index" :label-width="80">
+				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAction" />
+				<FormItem label="响应名">
+					<Input v-model="item.name"></Input>
+				</FormItem>
+				<FormItem label="响应键">
+					<Select v-model="item.key">
+						<Option v-for="option in actionKeyList" :value="option.value" :key="option.value">{{option.label}}</Option>
+					</Select>
+				</FormItem>
+				<FormItem label="响应条件">
+					<RadioGroup v-model="item.condition">
+						<Radio label="loading">加载触发</Radio>
+						<Radio label="event">事件触发</Radio>
+					</RadioGroup>
+				</FormItem>
+				<FormItem label="响应类型">
+					<RadioGroup v-model="item.type">
+						<Radio label="interface">接口</Radio>
+						<Radio label="static">固定值</Radio>
+						<Radio label="url">链接参数</Radio>
+						<Radio label="sessionStorage">缓存</Radio>
+					</RadioGroup>
+				</FormItem>
+				<FormItem v-if="item.type === 'static'" label="响应值">
+					<image-upload v-if="key === 'image'" lable="背景图片" :formData="item" :name="value" @formChange="formChange"></image-upload>
+					<ColorPicker v-if="actionKeyType === 'color'" v-model="item.value" alpha />
+					<Input v-else v-model="item.value"></Input>
+				</FormItem>
+				<FormItem v-else-if="item.type === 'interface'" label="响应值">
+					<div class="item-btn" @click="selectActionValue(item)">{{item.value.name}}</div>
+				</FormItem>
+				<FormItem v-else label="响应值">
+					<Input v-model="item.value"></Input>
+				</FormItem>
+			</Form>
 			<hr/>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script>
@@ -166,30 +171,6 @@
 </script>
 
 <style scoped>
-	.form{
-		position:relative;
-		margin:5px 0;
-	}
-	.form-short{
-		width:300px;
-	}
-	.form-list{
-		position:relative;
-		overflow:hidden;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.form-list .form-lable{
-		width:85px;
-		display: inline-block;
-	    font-size: 14px;
-	    text-align: right;
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    height: 40px;
-	    line-height: 40px;
-	}
 	.form-item{
 		padding:0 10px;
 		margin-right:10px;
@@ -205,39 +186,11 @@
 	.form-item.current{
 		border:1px solid #138ed4;
 	}
-	.add-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../assets/img/weipage/icon-add.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
-		cursor:pointer;
-		display:inline-block;
-		float:left;
+	.add-btn{
+		margin-top: 10px;
+		cursor: pointer;
 	}
-	.action-interface{
-		position:relative;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.sub-form-list{
-		background-color:#f0f0f0;
-		margin-left:80px;
-		position:relative;
-	}
-	.action-interface .lable{
-		width:85px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: right;
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 40px;
-		line-height: 40px;
-	}
-	.action-interface .interface-btn{
+	.item-btn{
 		height: 36px;
 		line-height: 36px;
 		padding:0 10px;
@@ -247,15 +200,8 @@
 		display:inline-block;
 		background-color:#fff;
 	}
-	.delete-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../assets/img/weipage/icon-delete.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
+	.delete-btn{
 		cursor:pointer;
-		display:inline-block;
 		position:absolute;
 		right:10px;
 		top:10px;

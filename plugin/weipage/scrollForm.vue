@@ -1,48 +1,58 @@
 <template>
-	<div class="plugin-form">
-		<div class="form-list">
-			<div class="form-lable">事件列表：</div>
-			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.scrollEvent.eventList" @click="selectEvent(index)">{{index+1}}</div>
-			<div class="add-module" @click="addEvent"></div>
-		</div>
-		<div class="sub-form-list" v-if="formData.scrollEvent.eventList && formData.scrollEvent.eventList.length">
+	<div>
+		<Form :label-width="80">
+			<FormItem label="事件列表">
+				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.scrollEvent.eventList" @click="selectEvent(index)">{{index+1}}</div>
+				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
+			</FormItem>
+		</Form>
+		<div v-if="formData.scrollEvent.eventList && formData.scrollEvent.eventList.length">
 			<hr/>
-			<template v-for="(item,index) in formData.scrollEvent.eventList" v-if="formData.scrollEvent.selectIndex === index">
-				<div class="delete-module" @click="deleteEvent"></div>
-				<div class="form">
-					<v-radio lable="方向" :options="directionOptions" :formData="item" name="direction"></v-radio>
-				</div>
-				<div class="form">
-					<v-radio lable="类型" :options="eventTypeOptions" :formData="item" name="type"></v-radio>
-				</div>
-				<template v-if="item.type === 'normal'">
-					<div class="form-list">
-						<span class="form-lable">元件：</span>
+			<div v-for="(item,index) in formData.scrollEvent.eventList" v-if="formData.scrollEvent.selectIndex === index">
+				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteEvent" />
+				<Form :label-width="80">
+					<FormItem label="方向">
+						<RadioGroup v-model="item.direction">
+							<Radio label="bottom">向下</Radio>
+							<Radio label="top">向上</Radio>
+						</RadioGroup>
+					</FormItem>
+					<FormItem label="类型">
+						<RadioGroup v-model="item.type">
+							<Radio label="interface">接口事件</Radio>
+							<Radio label="normal">本地事件</Radio>
+						</RadioGroup>
+					</FormItem>
+				</Form>
+				<Form v-if="item.type === 'normal'" :label-width="80">
+					<FormItem label="元件">
 						<div class="form-item" @click="openPluginTreeModel(item)">{{item.value.name}}</div>
-					</div>
-					<template v-if="item.value.options && item.value.options.length">
-						<div class="form">
-							<v-select lable="响应" :options="item.value.options" :formData="item.value" name="actionIndex" @formChange="normalEventChange"></v-select>
-						</div>
-					</template>
-				</template>
+					</FormItem>
+					<FormItem v-if="item.value.options && item.value.options.length" label="响应">
+						<Select v-model="item.value">
+							<Option v-for="option in item.value.options" :value="option.value.actionIndex" :key="option.value">{{option.label}}</Option>
+						</Select>
+					</FormItem>
+				</Form>
 				<template v-else>
-					<div class="form-list">
-						<span class="form-lable">接口：</span>
-						<div class="form-item" @click="openInterfaceModel(item)">{{item.value.name}}</div>
-					</div>
+					<Form :label-width="80">
+						<FormItem label="接口">
+							<div class="form-item" @click="openInterfaceModel(item)">{{item.value.name}}</div>
+						</FormItem>
+					</Form>
 					<template v-if="item.value.param && item.value.param.length">
-						<div class="form size-l" v-for="inf in item.value.param">
-							<v-input-source v-if="inf.value.source === 'count'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="countOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
-							<v-input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
+						<div v-for="inf in item.value.param">
+							<input-source v-if="inf.value.source === 'count'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="countOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></input-source>
+							<input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></input-source>
 						</div>
 					</template>
-					<div class="form-list">
-						<span class="form-lable">累加参数：</span>
-						<div class="form-item" @click="openInteraceTreeModel(item)">{{item.keyword.name}}</div>
-					</div>
+					<Form :label-width="80">
+						<FormItem label="累加参数">
+							<div class="form-item" @click="openInteraceTreeModel(item)">{{item.keyword.name}}</div>
+						</FormItem>
+					</Form>
 				</template>
-			</template>
+			</div>
 		</div>
 	</div>
 </template>
@@ -61,20 +71,6 @@
 		data () {
 		    return {
 				selectIndex: 0,
-				eventTypeOptions: [{
-					label: '接口事件',
-					value: 'interface'
-				},{
-					label: '本地事件',
-					value: 'normal'
-				}],
-				directionOptions: [{
-					label: '向下',
-					value: 'bottom'
-				},{
-					label: '向上',
-					value: 'top'
-				}],
 				sourceOptions: [{
 					label: '固定值',
 					value: 'static'
@@ -193,3 +189,32 @@
 		}
 	}
 </script>
+
+<style scoped>
+	.form-item{
+		padding:0 10px;
+		margin-right:10px;
+		border-radius:4px;
+		height:40px;
+		line-height:40px;
+		background-color:#fff;
+		display:inline-block;
+		border:1px solid #fff;
+		float:left;
+		cursor:pointer;
+	}
+	.form-item.current{
+		border:1px solid #138ed4;
+	}
+	.add-btn{
+		margin-top:10px;
+		cursor:pointer;
+	}
+	.delete-btn{
+		cursor:pointer;
+		position:absolute;
+		right:10px;
+		top:10px;
+		z-index:10;
+	}
+</style>

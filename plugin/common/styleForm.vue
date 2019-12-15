@@ -1,7 +1,8 @@
 <template>
-	<div class="form">
+	<div>
 		<Form ref="styleForm" :label-width="80">
-			<FormItem v-for="(val, key, index) in formData" :label="getFormLabel(key)">
+			<FormItem v-for="(val, key, index) in formData" :label="getFormLabel(key)" :key="key">
+				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="formData" :name="key" @formChange="formChange"></image-upload>
 				<ColorPicker v-if="key === 'color' || key === 'backgroundColor'" v-model="formData[key]" alpha />
 				<Input v-else v-model="formData[key]"></Input>
 			</FormItem>
@@ -47,15 +48,15 @@
 			},
 			openStyleModel: function() {
 				this.$emit('open-style-model')
+			},
+			formChange: function() {
+
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	.form{
-		padding: 20px 40px 0 0;
-	}
 	.more-style{
 		cursor: pointer;
 		margin: 0 78px 20px;

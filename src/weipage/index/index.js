@@ -4,8 +4,6 @@ import '../../../assets/css/reset.css'
 import '../../../assets/css/weipage/formList.css'
 import './style.css'
 
-import '../../../vueComponent'
-import '../../../vueComponents'
 import '../../../plugin'
 import '../../../assets/vue'
 

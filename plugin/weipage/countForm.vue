@@ -1,29 +1,27 @@
 <template>
-	<div class="plugin-form">
-		<div class="form-list">
-			<div class="form-lable">计数器列表：</div>
-			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.countEvent.eventList" @click="selectEvent(index)">{{item.name}}</div>
-			<div class="add-module" @click="addEvent"></div>
-		</div>
-		<div class="sub-form-list" v-if="formData.countEvent.eventList && formData.countEvent.eventList.length">
+	<div>
+		<Form :label-width="80">
+			<FormItem label="计数器列表">
+				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.countEvent.eventList" @click="selectEvent(index)">{{item.name}}</div>
+				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
+			</FormItem>
+		</Form>
+		<Form v-if="formData.countEvent.eventList && formData.countEvent.eventList.length" :label-width="80">
 			<hr/>
 			<template v-for="(item,index) in formData.countEvent.eventList" v-if="selectIndex === index">
-				<div class="delete-module" @click="deleteOption(index)"></div>
-				<div class="form">
-					<v-text lable="名称" :formData="item" name="name"></v-text>
-				</div>
-				<div class="form">
-					<v-radio lable="规则" :options="ruleOptions" :formData="item" name="rule"></v-radio>
-				</div>
-				<div class="form">
-					<v-number lable="初始值" :formData="item" name="initial"></v-number>
-				</div>
-				<div class="form">
-					<v-number lable="变化基数" :formData="item" name="cardinal"></v-number>
-				</div>
+				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteOption(index)" />
+				<FormItem label="名称">
+					<Input v-model="item.name"></Input>
+				</FormItem>
+				<FormItem label="规则">
+					<RadioGroup v-model="formData.rule">
+						<Radio label="add">自增</Radio>
+						<Radio label="reduce">自减</Radio>
+					</RadioGroup>
+				</FormItem>
 			</template>
 			<hr/>
-		</div>
+		</Form>
 	</div>
 </template>
 
@@ -85,5 +83,30 @@
 
 
 <style scoped>
-
+	.form-item{
+		padding:0 10px;
+		margin-right:10px;
+		border-radius:4px;
+		height:40px;
+		line-height:40px;
+		background-color:#fff;
+		display:inline-block;
+		border:1px solid #fff;
+		float:left;
+		cursor:pointer;
+	}
+	.form-item.current{
+		border:1px solid #138ed4;
+	}
+	.add-btn{
+		margin-top:10px;
+		cursor:pointer;
+	}
+	.delete-btn{
+		cursor:pointer;
+		position:absolute;
+		right:10px;
+		top:10px;
+		z-index:10;
+	}
 </style>
