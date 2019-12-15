@@ -32,87 +32,24 @@
 				<div class="view-page-head" @click="selectPlugin('')"></div>
 				<iframe id="weipageView" class="view-page-iframe" src="/weipage/editMobile"></iframe>
 			</div>
-			<div class="edit-page" v-if="editForm">
-				<ul class="tab-control" v-if="editForm.pluginType == 'panel'">
-					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
-					<li :class="{current: selectForm == 'style'}" @click="changeFormTab('style')">样式</li>
-					<li :class="{current: selectForm == 'event'}" @click="changeFormTab('event')">事件</li>
-				</ul>
-				<ul class="tab-control" v-else-if="editForm.pluginType == 'form'">
-					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
-					<li :class="{current: selectForm == 'style'}" @click="changeFormTab('style')">样式</li>
-				</ul>
-				<ul class="tab-control" v-else>
-					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
-				</ul>
-				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
-				<template v-if="selectForm == 'base'">
-					<panel-base-form
-						v-if="editForm.pluginType == 'panel'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@action-image="selectImage">
-					</panel-base-form>
-					<text-base-form
-						v-else-if="editForm.pluginType == 'text'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel">
-					</text-base-form>
-					<image-base-form
-						v-else-if="editForm.pluginType == 'image'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@select-image="selectImage">
-					</image-base-form>
-					<form-base-form
-						v-else-if="editForm.pluginType == 'form'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel">
-					</form-base-form>
-				</template>
-				<template v-if="selectForm == 'style'">
-					<style-form
-						:form-data="editForm.style"
-						@open-style-model="openStyleModel"
-						@select-image="selectImage">
-					</style-form>
-				</template>
-				<template v-if="selectForm == 'event'">
-					<panel-event-form
-						v-if="editForm.pluginType == 'panel'"
-						:form-data="editForm.event"
-						:base-data="editForm.base"
-						:weipage-data="weipage"
-						@open-interface-model="openInterfaceModel"
-						@open-plugin-tree-model="openPluginTreeModel"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@open-form-tree-model="openFormTreeModel">
-					</panel-event-form>
-				</template>
-			</div>
-			<div class="edit-page" v-else>
-				<ul class="tab-control">
-					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">微页面</li>
-					<li :class="{current: selectForm == 'scroll'}" @click="changeFormTab('scroll')">滚动条</li>
-					<li :class="{current: selectForm == 'count'}" @click="changeFormTab('count')">计数器</li>
-				</ul>
-				<weipage-base-form
-					v-if="selectForm == 'base'"
-					:form-data="weipage"
+			<div class="edit-page">
+				<edit-form
+					v-if="editForm"
+					:editForm="editForm"
+					@select-image="selectImage"
 					@open-interface-model="openInterfaceModel"
-					@select-image="selectImage">
-				</weipage-base-form>
-				<weipage-scroll-form
-					v-else-if="selectForm == 'scroll'"
-					:form-data="weipage" 
 					@open-plugin-tree-model="openPluginTreeModel"
+					@open-interface-tree-model="openInterfaceTreeModel"
+					@open-form-tree-model="openFormTreeModel"
+				></edit-form>
+				<weipage-form 
+					v-else
+					:weipage="weipage"
+					@select-image="selectImage"
 					@open-interface-model="openInterfaceModel"
+					@open-plugin-tree-model="openPluginTreeModel"
 					@open-interface-tree-model="openInterfaceTreeModel">
-				</weipage-scroll-form>
-				<weipage-count-form
-					v-else-if="selectForm == 'count'"
-					:form-data="weipage">
-				</weipage-count-form>
+				</weipage-form>
 			</div>
 
 			<ul class="foot-btn-list">

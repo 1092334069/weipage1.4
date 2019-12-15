@@ -5,6 +5,8 @@ import interfaceChildTree from './interfaceChildTree.vue'
 import styleSelector from './styleSelector.vue'
 import imageUpload from './imageUpload.vue'
 import inputSource from './inputSource.vue'
+import editForm from './editForm.vue'
+import weipageForm from './weipageForm.vue'
 
 formTree.install = function(Vue) {
 	Vue.component(formTree.name, formTree)
@@ -34,6 +36,14 @@ inputSource.install = function(Vue) {
 	Vue.component(inputSource.name, inputSource)
 }
 
+editForm.install = function(Vue) {
+	Vue.component(editForm.name, editForm)
+}
+
+weipageForm.install = function(Vue) {
+	Vue.component(weipageForm.name, weipageForm)
+}
+
 Vue.use(formTree)
 Vue.use(pluginTree)
 Vue.use(interfaceTree)
@@ -41,3 +51,5 @@ Vue.use(interfaceChildTree)
 Vue.use(styleSelector)
 Vue.use(imageUpload)
 Vue.use(inputSource)
+Vue.use(editForm)
+Vue.use(weipageForm)
