@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<Form ref="styleForm" :label-width="80">
-			<FormItem v-for="(val, key, index) in formData" :label="getFormLabel(key)" :key="key">
-				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="formData" :name="key" @formChange="formChange"></image-upload>
-				<ColorPicker v-if="key === 'color' || key === 'backgroundColor'" v-model="formData[key]" alpha />
-				<Input v-else v-model="formData[key]"></Input>
+			<FormItem v-for="(val, key, index) in styleData" :label="getFormLabel(key)" :key="key">
+				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="styleData" :name="key" @formChange="formChange"></image-upload>
+				<ColorPicker v-if="key === 'color' || key === 'backgroundColor'" v-model="styleData[key]" alpha />
+				<Input v-else v-model="styleData[key]"></Input>
+				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteStyle(key)" />
 			</FormItem>
 		</Form>
 		<div class="more-style" @click="openStyleModel">
@@ -49,17 +50,38 @@
 			openStyleModel: function() {
 				this.$emit('open-style-model')
 			},
+			deleteStyle: function(k) {
+				const style = {}
+				for (let key in this.formData.style) {
+					if (k !== key) {
+						style[key] = this.formData.style[key]
+					}
+				}
+				this.formData.style = style
+			},
 			formChange: function() {
 
+			}
+		},
+		computed: {
+			styleData: function(){
+				return this.formData.style
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	.more-style{
-		cursor: pointer;
-		margin: 0 78px 20px;
-		display: inline-block;
-	}
+.more-style{
+	cursor: pointer;
+	margin: 0 78px 20px;
+	display: inline-block;
+}
+.delete-btn{
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translate(0, -50%);
+	cursor: pointer;
+}
 </style>

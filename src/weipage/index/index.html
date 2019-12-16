@@ -35,8 +35,10 @@
 			<div class="edit-page">
 				<edit-form
 					v-if="editForm"
-					:editForm="editForm"
+					:edit-form="editForm"
+					:weipage="weipage"
 					@select-image="selectImage"
+					@open-style-model="openStyleModel"
 					@open-interface-model="openInterfaceModel"
 					@open-plugin-tree-model="openPluginTreeModel"
 					@open-interface-tree-model="openInterfaceTreeModel"
