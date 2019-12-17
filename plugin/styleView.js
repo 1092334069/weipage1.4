@@ -35,7 +35,7 @@ function parseUnit(key, str) {
 
 const styleView = {
 	parsePanelStyle: function() {
-		let width,height
+		let height
 		if (this.viewData.style && this.viewData.base) {
 			if (this.viewData.style.display === 'none') {
 				return 'display:none'
@@ -45,7 +45,7 @@ const styleView = {
 			} else {
 				height = 'minHeight:' + this.viewData.style.height + ';'
 			}
-			return width + height
+			return height
 		} else {
 			return ''
 		}
@@ -56,7 +56,11 @@ const styleView = {
 	parseNormalStyle: function() {
 		let style = ''
 		for (let key in this.viewData.style) {
-			style += `${key}:${parseUnit(key, this.viewData.style[key])};`
+			let value = this.viewData.style[key]
+			if (key === 'backgroundImage') {
+				value = `url(${value})`
+			}
+			style += `${key}:${parseUnit(key, value)};`
 		}
 		return style
 	}

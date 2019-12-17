@@ -2,8 +2,8 @@
 	<div>
 		<Form ref="styleForm" :label-width="80">
 			<FormItem v-for="(val, key, index) in styleData" :label="getFormLabel(key)" :key="key">
-				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="styleData" :name="key" @formChange="formChange"></image-upload>
-				<ColorPicker v-if="key === 'color' || key === 'backgroundColor'" v-model="styleData[key]" alpha />
+				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="styleData" :name="key" @selectImage="selectImage"></image-upload>
+				<ColorPicker v-else-if="key === 'color' || key === 'backgroundColor'" v-model="styleData[key]" alpha />
 				<Input v-else v-model="styleData[key]"></Input>
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteStyle(key)" />
 			</FormItem>
@@ -58,9 +58,6 @@
 					}
 				}
 				this.formData.style = style
-			},
-			formChange: function() {
-
 			}
 		},
 		computed: {

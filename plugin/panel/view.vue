@@ -58,8 +58,7 @@
 </script>
 
 <style scoped>
-	.panel{
-		overflow:hidden;
+	.panel.panel{
 		position:relative;
 		display:inline-block;
 	}

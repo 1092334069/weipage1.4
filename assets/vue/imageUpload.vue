@@ -1,13 +1,9 @@
 <template>
 	<div class="image-upload">
-		<Form :label-width="80">
-			<FormItem :label="lable">
-				<div v-if="model!==''" class="upload-btn" @click="selectImage">
-					<img :src="model" />
-				</div>
-				<div v-else class="upload-btn default" @click="selectImage"></div>
-			</FormItem>
-		</Form>
+		<div v-if="model!==''" class="upload-btn" @click="selectImage">
+			<img :src="model" />
+		</div>
+		<div v-else class="upload-btn default" @click="selectImage"></div>
 	</div>
 </template>
 
