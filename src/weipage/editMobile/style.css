@@ -5,10 +5,6 @@ body{
 .plugin{
 	cursor:pointer;
 }
-.plugin.current{
-	box-shadow:0 0 1px 1px #138ed4;
-	z-index:2;
-}
 .plugin.clone{
 	position:fixed !important;
 	cursor:pointer;
@@ -22,6 +18,10 @@ body{
 	top:0;
 	right:0;
 	cursor:move;
+	display:none;
+}
+.plugin:hover .drop-icon{
+	display:inline-block;
 }
 .plugin .resize-icon{
 	position:absolute;
@@ -29,4 +29,8 @@ body{
 	right:0;
 	transform:rotate(90deg);
 	cursor:se-resize;
+	display:none;
+}
+.plugin:hover .resize-icon{
+	display:inline-block;
 }

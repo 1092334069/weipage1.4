@@ -12,7 +12,8 @@ function createPluginList(localKey, scaleplateList, layerList, imageSource, imgF
 		}
 		const style = {
 			width: 375,
-			height
+			height,
+			position: 'relative'
 		}
 		const panelPlugin = createPanel(localKey, '面板', style)
 		pluginList.push(panelPlugin)
@@ -38,9 +39,9 @@ function createPluginList(localKey, scaleplateList, layerList, imageSource, imgF
 					pluginStyle['backgroundImage'] = imgFileDir + '/' + imageSource[layerList[i].src]
 				}
 				const panelPlugin = createPanel(localKey, pluginName, pluginStyle)
-				if (layerList[i].content) {
-					panelPlugin.pluginList.push(createText(localKey, layerList[i].content))
-				}
+				// if (layerList[i].content) {
+				// 	panelPlugin.pluginList.push(createText(localKey, layerList[i].content))
+				// }
 				pluginList[j].pluginList.push(panelPlugin)
 				break
 			}
@@ -70,10 +71,14 @@ function createPanel(localKey, name, style) {
 }
 
 // 创建文本插件
-function createText(localKey, text) {
+function createText(localKey, name, style, text) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['text']))
 	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.name = name
 	plugin.base.data = text
+	for (let key in style) {
+		plugin.style[key] = style[key]
+	}
 	return plugin
 }
 

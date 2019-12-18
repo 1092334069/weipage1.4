@@ -100,5 +100,6 @@
 <style scoped>
 .panel{
 	min-height: 80vh;
+	padding-left: 20px;
 }
 </style>

@@ -339,14 +339,14 @@ $('#file').on('change', () => {
 // 更新预览页面数据
 function weipageViewPluginList() {
 	var weipageViewWindow = $('#weipageView')[0].contentWindow
-	if (weipageViewWindow) {
+	if (weipageViewWindow && weipageViewWindow.uploadPluginList) {
 		weipageViewWindow.uploadPluginList(weipage.pluginList)
 	}
 }
 // 选中插件id
 function weipageViewSelectPluginId() {
 	var weipageViewWindow = $('#weipageView')[0].contentWindow
-	if (weipageViewWindow) {
+	if (weipageViewWindow && weipageViewWindow.selectPluginId) {
 		weipageViewWindow.selectPluginId(weipage.selectPluginId)
 	}
 }
