@@ -202,7 +202,7 @@
 		border:1px solid #138ed4;
 	}
 	.add-btn{
-		margin-top: 10px;
+		margin-top: 5px;
 		cursor: pointer;
 	}
 </style>

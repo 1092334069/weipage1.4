@@ -284,9 +284,12 @@ var weipage = new Vue({
 		}
 	},
 	watch: {
-		pluginList(val) {
-			this.editForm = this.getSelectPlugin()
-			weipageViewPluginList()
+		pluginList: {
+			handler() {
+				this.editForm = this.getSelectPlugin()
+				weipageViewPluginList()
+			},
+			deep: true
 		},
 		selectPluginId() {
 			this.editForm = this.getSelectPlugin()
@@ -336,18 +339,41 @@ $('#file').on('change', () => {
 /*
 *	操作子iframe
 */
+const weipageViewIframe = $('#weipageView')
+let weipageViewOnload = false
+const weipageViewCallbackList = []
+weipageViewIframe.on('load', function() {
+	weipageViewOnload = true
+	for (let i = weipageViewCallbackList.length; i--; i >= 0) {
+		const callback = weipageViewCallbackList.splice(i, 1)
+		callback[0]()
+	}
+})
+
 // 更新预览页面数据
 function weipageViewPluginList() {
-	var weipageViewWindow = $('#weipageView')[0].contentWindow
-	if (weipageViewWindow && weipageViewWindow.uploadPluginList) {
-		weipageViewWindow.uploadPluginList(weipage.pluginList)
+	if (weipageViewOnload) {
+		const weipageViewWindow = weipageViewIframe[0].contentWindow
+		if (weipageViewWindow && weipageViewWindow.uploadPluginList) {
+			weipageViewWindow.uploadPluginList(weipage.pluginList)
+		} else {
+			console.log('not find weipageViewWindow')
+		}
+	} else {
+		weipageViewCallbackList.push(weipageViewPluginList)
 	}
 }
 // 选中插件id
 function weipageViewSelectPluginId() {
-	var weipageViewWindow = $('#weipageView')[0].contentWindow
-	if (weipageViewWindow && weipageViewWindow.selectPluginId) {
-		weipageViewWindow.selectPluginId(weipage.selectPluginId)
+	if (weipageViewOnload) {
+		const weipageViewWindow = weipageViewIframe[0].contentWindow
+		if (weipageViewWindow && weipageViewWindow.selectPluginId) {
+			weipageViewWindow.selectPluginId(weipage.selectPluginId)
+		} else {
+			console.log('not find weipageViewWindow')
+		}
+	} else {
+		weipageViewCallbackList.push(weipageViewSelectPluginId)
 	}
 }
 
