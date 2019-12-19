@@ -193,6 +193,16 @@ const styleConfig = {
 		label: '堆叠顺序',
 		isPx: false,
 		form: 'text'
+	},
+	fontFamily: {
+		label: '字体名称',
+		isPx: false,
+		form: 'text'
+	},
+	letterSpacing: {
+		label: '文字间距',
+		isPx: true,
+		form: 'text'
 	}
 }
 
