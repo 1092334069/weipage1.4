@@ -37,7 +37,6 @@
 
 <style scoped>
 .panel{
-	background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center;
 }
