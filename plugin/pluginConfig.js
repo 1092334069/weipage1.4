@@ -10,7 +10,8 @@ const pluginConfig = {
 		},
 		style: {
 			width: 375,
-			height: 50
+			height: 50,
+			backgroundColor: '#ffffff'
 		},
 		event: {
 			eventList: []

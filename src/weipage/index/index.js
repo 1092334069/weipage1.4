@@ -62,6 +62,7 @@ var weipage = new Vue({
 			},
 
 			editForm: '',
+			editFormStyle: {},
 
 			// 插件编辑
 			pluginList: [],

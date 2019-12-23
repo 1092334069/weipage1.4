@@ -117,6 +117,8 @@
 				width="750"
 				:footer-hide="true">
 				<style-selector
+					v-if="editForm"
+					:edit-form="editForm"
 					@select-style="selectStyle"
 				></style-selector>
 			</Modal>

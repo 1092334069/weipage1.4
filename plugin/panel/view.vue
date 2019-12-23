@@ -39,5 +39,6 @@
 .panel{
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
 }
 </style>
