@@ -117,8 +117,9 @@ var weipage = new Vue({
 		getSelectPlugin() {
 			return pluginSearch(this, this.selectPluginId)
 		},
-		removePlugin(pluginId) {
-			pluginRemove(this, pluginId)
+		removePlugin() {
+			pluginRemove(this, this.selectPluginId)
+			this.selectPlugin('')
 		},
 		changeFormTab(form) {
 			this.selectForm = form

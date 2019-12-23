@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="edit-form">
 		<Tabs type="card" value="base">
 			<TabPane label="基础" name="base">
 				<div class="panel">
@@ -51,6 +51,7 @@
 				</div>
 			</TabPane>
 		</Tabs>
+		<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="removePlugin" />
 	</div>
 </template>
 
@@ -75,6 +76,9 @@
 			return {}
 		},
 		methods: {
+			removePlugin: function() {
+				this.$emit('remove-plugin')
+			},
 			selectImage: function() {
 				this.$emit('select-image')
 			},
@@ -98,6 +102,15 @@
 </script>
 
 <style scoped>
+.edit-form{
+	position: relative;
+}
+.delete-btn{
+	position: absolute;
+	right: 10px;
+	top: 4px;
+	cursor: pointer;
+}
 .panel{
 	min-height: 80vh;
 	padding-left: 20px;
