@@ -1,0 +1,31 @@
+.form{
+	position: relative;
+}
+.form .form-panel{
+	position: relative;
+}
+.form .form-item{
+	padding: 0 10px;
+	margin-right: 10px;
+	border-radius: 4px;
+	height: 32px;
+	line-height: 30px;
+	background-color: #ffffff;
+	display: inline-block;
+	border: 1px solid #e5e5e5;
+	float: left;
+	cursor: pointer;
+}
+.form .form-item.current{
+	border: 1px solid #138ed4;
+}
+.form .add-btn{
+	margin-top: 5px;
+	cursor: pointer;
+}
+.form .delete-btn{
+	position: absolute;
+	right: 10px;
+	top: 4px;
+	cursor: pointer;
+}

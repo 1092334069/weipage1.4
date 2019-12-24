@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="form">
 		<Form :label-width="80">
 			<FormItem label="名称">
 				<Input v-model="formData.name"></Input>
@@ -8,28 +8,26 @@
 				<RadioGroup v-model="formData.type">
 					<Radio label="normal">普通</Radio>
 					<Radio label="list">列表</Radio>
-					<Radio label="waterfall">瀑布流</Radio>
 					<Radio label="swiper">轮播</Radio>
-					<Radio label="slider">滑块</Radio>
 				</RadioGroup>
 			</FormItem>
 		</Form>
 		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
 		<Form :label-width="80">
 			<FormItem label="属性">
-				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.attrList" @click="selectAttr(index)">{{item.name}}</div>
+				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.attrList" @click="selectAttr(index)">{{item.key}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAttr" />
 			</FormItem>
 		</Form>
-		<div v-if="formData.attrList && formData.attrList.length">
+		<div class="form-panel" v-if="attrList && attrList.length">
 			<hr/>
-			<Form v-for="(item,index) in formData.attrList" v-if="attrSelectIndex === index" :key="index" :label-width="80">
-				<Icon type="ios-close-circle-outline" size="24" @click="deleteAttr" />
+			<Form v-for="(item,index) in attrList" v-if="attrSelectIndex === index" :key="index" :label-width="80">
+				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAttr" />
 				<FormItem label="属性键">
 					<Input v-model="item.key" placeholder="请输入字母"></Input>
 				</FormItem>
 				<FormItem label="属性值">
-					<div class="perch-btn" @click="selectAttrValue(formData.attrList, index)">{{item.name}}</div>
+					<div class="perch-btn" @click="selectAttrValue">{{item.name}}</div>
 				</FormItem>
 			</Form>
 			<hr/>
@@ -155,54 +153,41 @@
 					return ''
 				}
 			},
-			selectAttrValue: function(list, index) {
+			selectAttrValue: function() {
 				this.$emit('open-interface-tree-model', {
-					formData: list,
-					name: index
+					formData: this.attrList,
+					name: this.attrSelectIndex
 				})
 			},
 			selectAttr: function(index) {
 				this.attrSelectIndex = index
 			},
 			addAttr: function() {
-				const attrList = this.formData.attrList
 				const uuid = getLocalUuid()
-				attrList.push({
+				this.attrList.push({
 					attrId: uuid,
 					key: '',
 					name: '请选择属性',
 					url: '',
 					keyList: []
 				})
-				this.attrSelectIndex = attrList.length - 1
+				this.attrSelectIndex = this.attrList.length - 1
 			},
 			deleteAttr: function() {
-				const attrList = this.formData.attrList
-				attrList.splice(this.attrSelectIndex, 1)
+				this.attrList.splice(this.attrSelectIndex, 1)
 				this.attrSelectIndex = 0
+			}
+		},
+		computed: {
+			attrList: {
+				get() {
+					return this.formData.attrList
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-btn{
-		margin-top: 5px;
-		cursor: pointer;
-	}
+
 </style>

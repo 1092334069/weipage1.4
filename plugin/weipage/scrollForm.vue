@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="form">
 		<Form :label-width="80">
 			<FormItem label="事件列表">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.scrollEvent.eventList" @click="selectEvent(index)">{{index+1}}</div>
@@ -191,30 +191,5 @@
 </script>
 
 <style scoped>
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-btn{
-		margin-top:10px;
-		cursor:pointer;
-	}
-	.delete-btn{
-		cursor:pointer;
-		position:absolute;
-		right:10px;
-		top:10px;
-		z-index:10;
-	}
+
 </style>

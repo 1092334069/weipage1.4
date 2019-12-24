@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 
 import '../../../assets/css/reset.css'
-import '../../../assets/css/weipage/formList.css'
+import '../../../assets/css/weipage/form.css'
 import './style.css'
 
 import '../../../plugin'

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="form">
 		<Form :label-width="80">
 			<FormItem label="名称">
 				<Input v-model="formData.name"></Input>
