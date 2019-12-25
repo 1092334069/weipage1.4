@@ -62,7 +62,6 @@ var weipage = new Vue({
 			},
 
 			editForm: '',
-			editFormStyle: {},
 
 			// 插件编辑
 			pluginList: [],
@@ -288,7 +287,6 @@ var weipage = new Vue({
 	watch: {
 		pluginList: {
 			handler() {
-				this.editForm = this.getSelectPlugin()
 				weipageViewPluginList()
 			},
 			deep: true

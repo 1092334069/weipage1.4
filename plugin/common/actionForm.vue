@@ -1,12 +1,14 @@
 <template>
 	<div>
-		<Form :label-width="80">
-			<FormItem label="响应">
-				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
-				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAction" />
-			</FormItem>
-		</Form>
-		<div v-if="formData.actionList && formData.actionList.length">
+		<div class="form">
+			<Form :label-width="80">
+				<FormItem label="响应">
+					<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
+					<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAction" />
+				</FormItem>
+			</Form>
+		</div>
+		<div v-if="formData.actionList && formData.actionList.length" class="form">
 			<hr/>
 			<Form v-for="(item,index) in formData.actionList" v-if="selectIndex === index" :key="index" :label-width="80">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAction" />
@@ -171,40 +173,5 @@
 </script>
 
 <style scoped>
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-btn{
-		margin-top: 5px;
-		cursor: pointer;
-	}
-	.item-btn{
-		height: 36px;
-		line-height: 36px;
-		padding:0 10px;
-		border:1px solid #e5e5e5;
-		border-radius:4px;
-		cursor:pointer;
-		display:inline-block;
-		background-color:#fff;
-	}
-	.delete-btn{
-		cursor:pointer;
-		position:absolute;
-		right:10px;
-		top:10px;
-		z-index:10;
-	}
+	
 </style>

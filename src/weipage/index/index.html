@@ -71,17 +71,13 @@
 
 			<Modal
 				v-model="imageModel"
-				title="图片列表">
-					<ul class="image-model-list">
-						<li v-for="item in imageTabelData.list" class="image-model-item">
-							<img :src="item.url" @click="imageModelSelect(item.url)" />
-							<i class="delete"></i>
-						</li>
-					</ul>
-					<div style="margin-left:12px">
-						<input class="hidden" id="file" type="file" />
-						<i-button type="info" @click="uploadImage">上传</i-button>
-					</div>
+				title="图片列表"
+				:footer-hide="true">
+				<image-selector
+					:image-list="imageTabelData.list"
+					@image-model-select="imageModelSelect"
+					@upload-image="uploadImage"
+				></image-selector>
 			</Modal>
 
 			<Modal

@@ -1,7 +1,11 @@
 body{
 	width:375px;
 	overflow-x:hidden;
-	background-color:#f2f2f2;
+}
+.weipage{
+	background-image:url('../../../assets/img/weipage/net.png');
+	width:375px;
+	min-height:100vh;
 }
 .plugin{
 	cursor:pointer;

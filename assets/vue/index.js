@@ -3,6 +3,7 @@ import pluginTree from './pluginTree.vue'
 import interfaceTree from './interfaceTree.vue'
 import interfaceChildTree from './interfaceChildTree.vue'
 import styleSelector from './styleSelector.vue'
+import imageSelector from './imageSelector.vue'
 import imageUpload from './imageUpload.vue'
 import inputSource from './inputSource.vue'
 import editForm from './editForm.vue'
@@ -28,6 +29,10 @@ styleSelector.install = function(Vue) {
 	Vue.component(styleSelector.name, styleSelector)
 }
 
+imageSelector.install = function(Vue) {
+	Vue.component(imageSelector.name, imageSelector)
+}
+
 imageUpload.install = function(Vue) {
 	Vue.component(imageUpload.name, imageUpload)
 }
@@ -49,6 +54,7 @@ Vue.use(pluginTree)
 Vue.use(interfaceTree)
 Vue.use(interfaceChildTree)
 Vue.use(styleSelector)
+Vue.use(imageSelector)
 Vue.use(imageUpload)
 Vue.use(inputSource)
 Vue.use(editForm)
