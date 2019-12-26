@@ -19,7 +19,7 @@
 				</RadioGroup>
 			</FormItem>
 		</Form>
-		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
 		<Form v-if="formData.type === 'select'" :label-width="80">
 			<FormItem label="选项">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.optionList" @click="selectOption(index)">{{item.label}}</div>
@@ -55,29 +55,8 @@
 		},
 		data () {
 			return {
-				optionSelectIndex: 0,
-				actionKeyList: [{
-					label: '数据',
-					value: 'data',
-					type: 'text'
-				},{
-					label: '样式 宽度',
-					value: 'width',
-					type: 'number'
-				},{
-					label: '样式 高度',
-					value: 'height',
-					type: 'number'
-				},{
-					label: '样式 字体大小',
-					value: 'fontSize',
-					type: 'number'
-				},{
-					label: '样式 文字颜色',
-					value: 'color',
-					type: 'color'
-				}]
-		    }
+				optionSelectIndex: 0
+			}
 		},
 		methods: {
 			selectImage: function(res) {

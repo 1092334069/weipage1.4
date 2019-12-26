@@ -8,7 +8,7 @@
 				<Input v-model="formData.data"></Input>
 			</FormItem>
 		</Form>
-		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
 	</div>
 </template>
 
@@ -24,13 +24,7 @@
 			}
 		},
 		data () {
-			return {
-				actionKeyList:[{
-					label: '值',
-					value: 'base.data',
-					type: 'text'
-				}]
-			}
+			return {}
 		},
 		methods: {
 			selectImage: function(res) {

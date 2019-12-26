@@ -15,19 +15,28 @@
 				<FormItem label="响应名">
 					<Input v-model="item.name"></Input>
 				</FormItem>
-				<FormItem label="响应键">
-					<Select v-model="item.key">
-						<Option v-for="option in actionKeyList" :value="option.value" :key="option.value">{{option.label}}</Option>
-					</Select>
-				</FormItem>
 				<FormItem label="响应条件">
 					<RadioGroup v-model="item.condition">
-						<Radio label="loading">加载触发</Radio>
+						<Radio label="loading">立即触发</Radio>
 						<Radio label="event">事件触发</Radio>
 					</RadioGroup>
 				</FormItem>
+				<FormItem label="响应键类">
+					<RadioGroup v-model="item.namespace">
+						<Radio label="base">基础</Radio>
+						<Radio label="style">样式</Radio>
+					</RadioGroup>
+				</FormItem>
+				<FormItem v-if="item.namespace == 'base'" label="响应键">
+					<span>数据</span>
+				</FormItem>
+				<FormItem v-else label="响应键">
+					<Select v-model="item.key" style="width:160px">
+						<Option v-for="option in actionKeyList" :value="option.value" :key="option.value">{{option.label}}</Option>
+					</Select>
+				</FormItem>
 				<FormItem label="响应类型">
-					<RadioGroup v-model="item.type">
+					<RadioGroup v-model="item.type" @on-change="actionTypeChange">
 						<Radio label="interface">接口</Radio>
 						<Radio label="static">固定值</Radio>
 						<Radio label="url">链接参数</Radio>
@@ -35,12 +44,12 @@
 					</RadioGroup>
 				</FormItem>
 				<FormItem v-if="item.type === 'static'" label="响应值">
-					<image-upload v-if="key === 'image'" lable="背景图片" :formData="item" :name="value" @formChange="formChange"></image-upload>
-					<ColorPicker v-if="actionKeyType === 'color'" v-model="item.value" alpha />
+					<imageUpload v-if="actionKeyType === 'image'" :formData="formData" name="cover" @selectImage="selectImage"></imageUpload>
+					<ColorPicker v-else-if="actionKeyType === 'color'" v-model="item.value" alpha />
 					<Input v-else v-model="item.value"></Input>
 				</FormItem>
 				<FormItem v-else-if="item.type === 'interface'" label="响应值">
-					<div class="item-btn" @click="selectActionValue(item)">{{item.value.name}}</div>
+					<div class="form-item" @click="selectActionValue(item)">{{item.value.name}}</div>
 				</FormItem>
 				<FormItem v-else label="响应值">
 					<Input v-model="item.value"></Input>
@@ -53,6 +62,7 @@
 
 <script>
 	import { getLocalUuid } from '../pluginAction.js'
+	import styleConfig from '../styleConfig.js'
 
 	export default {
 		name: "actionForm",
@@ -62,51 +72,27 @@
 				default: function() {
 					return {}
 				}
-			},
-			actionKeyList: {
-				type: Array,
-				default: function() {
-					return []
-				}
 			}
 		},
 		data () {
 		    return {
-		    	selectIndex: 0,
-				actionTypeList: [{
-					label: '接口',
-					value: 'interface'
-				},{
-					label: '固定值',
-					value: 'static'
-				},{
-					label: '链接参数',
-					value: 'url'
-				},{
-					label: '缓存',
-					value: 'sessionStorage'
-				}],
-				actionConditionList: [{
-					label: '加载触发',
-					value: 'loading'
-				},{
-					label: '事件触发',
-					value: 'event'
-				}]
+		    	selectIndex: 0
 			}
 		},
 		computed: {
-			actionValueOptions: function() {
-				let r = []
-				for (let i = 0; i < this.actionKeyList.length; i++) {
-					if (this.actionKeyList[i].value === this.formData.actionList[this.selectIndex].key) {
-						r = this.actionKeyList[i].options
-					}
+			actionKeyList: function() {
+				const list = []
+				for (let key in styleConfig) {
+					list.push({
+						label: styleConfig[key].label,
+						value: key,
+						type: styleConfig[key].form
+					})
 				}
-				return r
+				return list
 			},
 			actionKeyType: function() {
-				let r = ''
+				let r = 'text'
 				for (let i = 0; i < this.actionKeyList.length; i++) {
 					if (this.actionKeyList[i].value === this.formData.actionList[this.selectIndex].key) {
 						r = this.actionKeyList[i].type
@@ -143,7 +129,8 @@
 				actionList.push({
 					actionId: uuid,
 					name: '响应',
-					key: 'base.data',
+					namespace: 'base',
+					key: 'data',
 					condition: 'loading',
 					type: 'interface',
 					value: {
@@ -165,7 +152,7 @@
 			},
 			deleteAction: function() {
 				const actionList = this.formData.actionList
-				actionList.splice(this.formData.selectIndex, 1)
+				actionList.splice(this.selectIndex, 1)
 				this.selectIndex = 0
 			}
 		}

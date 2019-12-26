@@ -175,7 +175,7 @@ const styleConfig = {
 		form: 'text'
 	},
 	fontWeight: {
-		lable: '字体粗细',
+		label: '字体粗细',
 		isPx: false,
 		form: 'text'
 	},

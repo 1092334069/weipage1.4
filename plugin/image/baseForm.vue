@@ -8,7 +8,7 @@
 				<image-upload lable="图片" :formData="formData" name="data" @selectImage="selectImage"></image-upload>
 			</FormItem>
 		</Form>
-		<action-form :formData="formData" :action-key-list="actionKeyList" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
 	</div>
 </template>
 
@@ -24,17 +24,7 @@
 			}
 		},
 		data () {
-			return {
-				actionKeyList: [{
-					label: '图片',
-					value: 'base.data',
-					type: 'image'
-				},{
-					label: '宽度',
-					value: 'style.width',
-					type: 'number'
-				}]
-			}
+			return {}
 		},
 		methods: {
 			selectImage: function(res) {
