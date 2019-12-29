@@ -1,12 +1,12 @@
 import 'babel-polyfill'
-import '../../../assets/css/reset.css'
+import '@assets/css/reset.css'
 import './style.css'
 
-import '../../../plugin/mobile.js'
+import '@plugin/mobile.js'
 
-import { commonAction } from '../../../assets/js/commonAction.js'
-import { weipageAction } from '../../../assets/js/weipage/weipageAction.js'
-import { mobileAction } from '../../../assets/js/weipage/mobileAction.js'
+import { commonAction } from '@assets/js/commonAction.js'
+import { weipageAction } from '@assets/js/weipage/weipageAction.js'
+import { mobileAction } from '@assets/js/weipage/mobileAction.js'
 
 var weipage = new Vue({
 	el: '#weipage',

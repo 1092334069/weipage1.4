@@ -1,18 +1,18 @@
 import 'babel-polyfill'
 
-import '../../../assets/css/reset.css'
-import '../../../assets/css/weipage/form.css'
+import '@assets/css/reset.css'
+import '@assets/css/weipage/form.css'
 import './style.css'
 
-import '../../../plugin'
-import '../../../assets/vue'
+import '@plugin'
+import '@assets/vue'
 
-import { commonAction } from '../../../assets/js/commonAction.js'
-import { pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from '../../../assets/js/weipage/formAction.js'
-import { createPlugin } from '../../../plugin/pluginAction.js'
-import { interfaceAction } from '../../../assets/js/weipage/interfaceAction.js'
-import { imageAction } from '../../../assets/js/weipage/imageAction.js'
-import { weipageAction } from '../../../assets/js/weipage/weipageAction.js'
+import { commonAction } from '@assets/js/commonAction.js'
+import { pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from '@assets/js/weipage/formAction.js'
+import { createPlugin } from '@plugin/pluginAction.js'
+import { interfaceAction } from '@assets/js/weipage/interfaceAction.js'
+import { imageAction } from '@assets/js/weipage/imageAction.js'
+import { weipageAction } from '@assets/js/weipage/weipageAction.js'
 
 // 回调响应
 const callbackAction = {

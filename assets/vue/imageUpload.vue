@@ -3,7 +3,7 @@
 		<div v-if="model!==''" class="upload-btn" @click="selectImage">
 			<img :src="model" />
 		</div>
-		<div v-else class="upload-btn default" @click="selectImage"></div>
+		<Icon v-else class="btn" type="ios-image-outline" size="68" @click="selectImage" />
 	</div>
 </template>
 
@@ -66,12 +66,11 @@
 		height:68px;
 		cursor:pointer;
 	}
-	.upload-btn.default{
-		background-image:url('../img/weipage/icon-upload.png');
-		background-size:100% 100%;
-	}
 	.upload-btn img{
 		width:68px;
 		height:68px;
+	}
+	.btn{
+		cursor:pointer;
 	}
 </style>

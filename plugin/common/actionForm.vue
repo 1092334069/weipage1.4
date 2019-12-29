@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<hr/>
 		<div class="form">
 			<Form :label-width="80">
 				<FormItem label="响应">
@@ -9,7 +10,6 @@
 			</Form>
 		</div>
 		<div v-if="formData.actionList && formData.actionList.length" class="form">
-			<hr/>
 			<Form v-for="(item,index) in formData.actionList" v-if="selectIndex === index" :key="index" :label-width="80">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAction" />
 				<FormItem label="响应名">
@@ -55,7 +55,6 @@
 					<Input v-model="item.value"></Input>
 				</FormItem>
 			</Form>
-			<hr/>
 		</div>
 	</div>
 </template>

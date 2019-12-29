@@ -1,12 +1,12 @@
 <template>
-	<div>
+	<div class="form">
 		<Form :label-width="80">
 			<FormItem label="事件列表">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.eventList" @click="selectEvent(index)">{{index+1}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
 			</FormItem>
 		</Form>
-		<div v-if="formData.eventList && formData.eventList.length">
+		<div v-if="formData.eventList && formData.eventList.length" class="form-panel">
 			<hr/>
 			<template v-for="(item,index) in formData.eventList" v-if="selectIndex === index">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteEvent" />
@@ -19,12 +19,12 @@
 						</RadioGroup>
 					</FormItem>
 				</Form>
-				<Form v-if="item.type === 'link'">
+				<Form v-if="item.type === 'link'" :label-width="80">
 					<FormItem label="链接地址">
 						<Input v-model="item.value"></Input>
 					</FormItem>
 				</Form>
-				<Form v-if="item.type === 'normal'">
+				<Form v-if="item.type === 'normal'" :label-width="80">
 					<FormItem label="元件">
 						<div class="form-item" @click="openPluginTreeModel(item)">{{item.value.name}}</div>
 					</FormItem>
@@ -40,11 +40,27 @@
 							<div class="form-item" @click="openInterfaceModel(item)">{{item.value.name}}</div>
 						</FormItem>
 					</Form>
-					<template v-if="item.value.param && item.value.param.length">
-						<div v-for="inf in item.value.param">
-							<input-source v-if="inf.value.source === 'attr'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="attrOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></input-source>
-							<input-source v-else-if="inf.value.source === 'count'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="countOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></input-source>
-							<input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></input-source>
+					<template v-for="inf in item.value.param">
+						<div v-if="item.value.param && item.value.param.length">
+							<inputSource
+								v-if="inf.value.source === 'attr'"
+								:formData="inf.value"
+								:name="inf.name"
+								type="select"
+								:inputOptions="attrOptions"
+							></inputSource>
+							<inputSource
+								v-else-if="inf.value.source === 'count'"
+								:formData="inf.value"
+								:name="inf.name"
+								type="select"
+								:inputOptions="countOptions"
+							></inputSource>
+							<inputSource
+								v-else
+								:formData="inf.value"
+								:name="inf.name"
+							></inputSource>
 						</div>
 					</template>
 				</template>
@@ -105,33 +121,10 @@
 		},
 		data () {
 			return {
-				selectIndex: 0,
-				sourceOptions: [{
-					label: '固定值',
-					value: 'static'
-				},{
-					label: '链接参数',
-					value: 'url'
-				},{
-					label: '缓存',
-					value: 'sessionStorage'
-				},{
-					label: '属性',
-					value: 'attr'
-				},{
-					label: '表单',
-					value: 'form'
-				},{
-					label: '计数器',
-					value: 'count'
-				}]
+				selectIndex: 0
 		    }
 		},
 		methods: {
-			formChange: function(res) {
-				res['pname'] = 'event'
-				this.$emit('form-change', res)
-			},
 			parseClass: function(index) {
 				if (index === this.selectIndex) {
 					return 'current'
@@ -140,13 +133,13 @@
 				}
 			},
 			openInterfaceModel: function(formData) {
-				this.$emit('open-interface-model', {
+				this.$emit('openInterfaceModel', {
 					formData,
 					name: 'value'
 				})
 			},
 			openPluginTreeModel: function(formData) {
-				this.$emit('open-plugin-tree-model', {
+				this.$emit('openPluginTreeModel', {
 					formData: formData,
 					name: 'value'
 				})
@@ -197,58 +190,8 @@
 					this.formData.eventList[this.selectIndex]['value'] = ''
 				}
 			},
-			normalEventChange: function(res) {
-				const v = this.formData.eventList[this.selectIndex]['value']
-				let actionName = ''
-				for (var i = 0; i < v.options.length; i++) {
-					if (v.options.value === res.value) {
-						actionName = v.options.label
-					}
-				}
-				v['actionIndex'] = res.value
-				v['actionName'] = actionName
-			},
-			interfaceChange: function(res) {
-				const interfaceInfo = this.formData.eventList[this.selectIndex]['value']
-				for (let i = 0; i < interfaceInfo.param.length; i++) {
-					if (interfaceInfo.param[i].key === res.name) {
-						interfaceInfo.param[i].value = res.value
-					}
-				}
-			},
-			interfaceSourceChange: function(res) {
-				if (res.value.source === 'form') {
-					this.$emit('open-form-tree-model', {
-						source: 'event',
-						key: res.name
-					})
-				}
-				this.interfaceChange(res)
-			},
-			statusChange(res) {
-				const status = this.formData.eventList[this.selectIndex]['status']
-				status[res.name] = res.value
-			},
-			statusTypeChange(res) {
-				if (res.value === 'interface') {
-					this.statusChange({
-						name: 'key',
-						value: {
-							name: '点击选择接口参数',
-							url: '',
-							keyList: []
-						}
-					})
-				} else {
-					this.statusChange({
-						name: 'key',
-						value: ''
-					})
-				}
-				this.statusChange(res)
-			},
 			openInterfaceTreeModel: function(formData) {
-				this.$emit('open-interface-tree-model', {
+				this.$emit('openInterfaceTreeModel', {
 					formData: formData,
 					name: 'key'
 				})
@@ -280,30 +223,5 @@
 </script>
 
 <style scoped>
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-btn{
-		margin-top:5px;
-		cursor:pointer;
-	}
-	.delete-btn{
-		cursor:pointer;
-		position:absolute;
-		right:10px;
-		top:10px;
-		z-index:10;
-	}
+	
 </style>

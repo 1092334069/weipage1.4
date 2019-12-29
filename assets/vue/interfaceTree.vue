@@ -4,7 +4,7 @@
 			<li v-for="(item,index) in interfaceList">
 				<div class="tree-item">{{item.name}}</div>
 				<div class="tree-child" v-if="item.callbackParam && item.callbackParam.length">
-					<div v-if="index != showIndex" class="tree-child-more" @click="showChildTree(index)"></div>
+					<Icon v-if="index != showIndex" class="tree-child-more" type="ios-arrow-forward" size="24" @click="showChildTree(index)" />
 					<interface-child-tree v-else :param-list="item.callbackParam" @select-interface-param="selectInterfaceParam"></interface-child-tree>
 				</div>
 			</li>
@@ -84,13 +84,9 @@
 	z-index:3;
 }
 .tree-child .tree-child-more{
-	width:20px;
-	height:20px;
-	background-size:100% 100%;
 	position:absolute;
 	left:10px;
 	top:10px;
 	cursor:pointer;
-	background-color:#cccccc;
 }
 </style>

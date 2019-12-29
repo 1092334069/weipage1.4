@@ -39,14 +39,7 @@
 		},
 		data () {
 		    return {
-				selectIndex: 0,
-				ruleOptions: [{
-					label: '自增',
-					value: 'add'
-				},{
-					label: '自减',
-					value: 'reduce'
-				}]
+				selectIndex: 0
 			}
 		},
 		methods: {

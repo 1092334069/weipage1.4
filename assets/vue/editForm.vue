@@ -3,51 +3,51 @@
 		<Tabs type="card" value="base">
 			<TabPane label="基础" name="base">
 				<div class="panel">
-					<panel-base-form
+					<panelBaseForm
 						v-if="editForm.pluginType == 'panel'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@action-image="selectImage">
-					</panel-base-form>
-					<text-base-form
+						:formData="editForm.base"
+						@openInterfaceTreeModel="openInterfaceTreeModel"
+						@actionImage="selectImage">
+					</panelBaseForm>
+					<textBaseForm
 						v-else-if="editForm.pluginType == 'text'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel">
-					</text-base-form>
-					<image-base-form
+						:formData="editForm.base"
+						@openInterfaceTreeModel="openInterfaceTreeModel">
+					</textBaseForm>
+					<imageBaseForm
 						v-else-if="editForm.pluginType == 'image'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@select-image="selectImage">
-					</image-base-form>
-					<form-base-form
+						:formData="editForm.base"
+						@openInterfaceTreeModel="openInterfaceTreeModel"
+						@selectImage="selectImage">
+					</imageBaseForm>
+					<formBaseForm
 						v-else-if="editForm.pluginType == 'form'"
-						:form-data="editForm.base"
-						@open-interface-tree-model="openInterfaceTreeModel">
-					</form-base-form>
+						:formData="editForm.base"
+						@openInterfaceTreeModel="openInterfaceTreeModel">
+					</formBaseForm>
 				</div>
 			</TabPane>
 			<TabPane label="样式" name="style">
 				<div class="panel">
-					<style-form
-						:form-data="editForm"
-						@open-style-model="openStyleModel"
-						@select-image="selectImage">
-					</style-form>
+					<styleForm
+						:formData="editForm"
+						@openStyleModel="openStyleModel"
+						@selectImage="selectImage">
+					</styleForm>
 				</div>
 			</TabPane>
 			<TabPane label="事件" name="event">
 				<div class="panel">
-					<panel-event-form
+					<panelEventForm
 						v-if="editForm.pluginType == 'panel'"
-						:form-data="editForm.event"
-						:base-data="editForm.base"
-						:weipage-data="weipage"
-						@open-interface-model="openInterfaceModel"
+						:formData="editForm.event"
+						:baseData="editForm.base"
+						:weipageData="weipage"
+						@openInterfaceModel="openInterfaceModel"
 						@open-plugin-tree-model="openPluginTreeModel"
-						@open-interface-tree-model="openInterfaceTreeModel"
-						@open-form-tree-model="openFormTreeModel">
-					</panel-event-form>
+						@openPluginTreeModel="openInterfaceTreeModel"
+						@openFormTreeModel="openFormTreeModel">
+					</panelEventForm>
 				</div>
 			</TabPane>
 		</Tabs>
@@ -76,26 +76,26 @@
 			return {}
 		},
 		methods: {
-			removePlugin: function() {
-				this.$emit('remove-plugin')
+			removePlugin: function(option) {
+				this.$emit('remove-plugin', option)
 			},
-			selectImage: function() {
-				this.$emit('select-image')
+			selectImage: function(option) {
+				this.$emit('select-image', option)
 			},
-			openStyleModel: function() {
-				this.$emit('open-style-model')
+			openStyleModel: function(option) {
+				this.$emit('open-style-model', option)
 			},
-			openInterfaceTreeModel: function() {
-				this.$emit('open-interface-model')
+			openInterfaceModel: function(option) {
+				this.$emit('open-interface-model', option)
 			},
-			openInterfaceModel: function() {
-				this.$emit('open-interface-model')
+			openInterfaceTreeModel: function(option) {
+				this.$emit('open-interface-tree-model', option)
 			},
-			openPluginTreeModel: function() {
-				this.$emit('open-plugin-tree-model')
+			openPluginTreeModel: function(option) {
+				this.$emit('open-plugin-tree-model', option)
 			},
-			openFormTreeModel: function() {
-				this.$emit('open-form-tree-model')
+			openFormTreeModel: function(option) {
+				this.$emit('open-form-tree-model', option)
 			}
 		}
 	}
@@ -112,7 +112,7 @@
 	cursor: pointer;
 }
 .panel{
-	min-height: 80vh;
+	min-height: 95vh;
 	padding-left: 20px;
 }
 </style>

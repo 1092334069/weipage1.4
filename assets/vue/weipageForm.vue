@@ -1,25 +1,31 @@
 <template>
-	<div>
+	<div class="edit-form">
 		<Tabs type="card" value="base">
 			<TabPane label="微页面" name="base">
-				<weipage-base-form
-					:form-data="weipage"
-					@open-interface-model="openInterfaceModel"
-					@select-image="selectImage">
-				</weipage-base-form>
+				<div class="panel">
+					<weipageBaseForm
+						:formData="weipage"
+						@openInterfaceModel="openInterfaceModel"
+						@selectImage="selectImage">
+					</weipageBaseForm>
+				</div>
 			</TabPane>
 			<TabPane label="滚动条" name="scroll">
-				<weipage-scroll-form
-					:form-data="weipage" 
-					@open-plugin-tree-model="openPluginTreeModel"
-					@open-interface-model="openInterfaceModel"
-					@open-interface-tree-model="openInterfaceTreeModel">
-				</weipage-scroll-form>
+				<div class="panel">
+					<weipageScrollForm
+						:formData="weipage" 
+						@openPluginTreeModel="openPluginTreeModel"
+						@openInterfaceModel="openInterfaceModel"
+						@openInterfaceTreeModel="openInterfaceTreeModel">
+					</weipageScrollForm>
+				</div>
 			</TabPane>
 			<TabPane label="计数器" name="count">
-				<weipage-count-form
-					:form-data="weipage">
-				</weipage-count-form>
+				<div class="panel">
+					<weipageCountForm
+						:formData="weipage">
+					</weipageCountForm>
+				</div>
 			</TabPane>
 		</Tabs>
 	</div>
@@ -40,22 +46,28 @@
 			return {}
 		},
 		methods: {
-			selectImage: function() {
-				this.$emit('select-image')
+			selectImage: function(option) {
+				this.$emit('select-image', option)
 			},
-			openInterfaceTreeModel: function() {
-				this.$emit('open-interface-model')
+			openInterfaceTreeModel: function(option) {
+				this.$emit('open-interface-model', option)
 			},
-			openInterfaceModel: function() {
-				this.$emit('open-interface-model')
+			openInterfaceModel: function(option) {
+				this.$emit('open-interface-model', option)
 			},
-			openPluginTreeModel: function() {
-				this.$emit('open-plugin-tree-model')
+			openPluginTreeModel: function(option) {
+				this.$emit('open-plugin-tree-model', option)
 			}
 		}
 	}
 </script>
 
 <style scoped>
-
+.edit-form{
+	position: relative;
+}
+.panel{
+	min-height: 95vh;
+	padding-left: 20px;
+}
 </style>

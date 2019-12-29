@@ -4,7 +4,7 @@
 			<li v-for="item in pluginList">
 				<div class="tree-item" :class="{current: item.pluginId == selectPluginId}" @click="pluginTreeSelect(item.pluginId)">{{item.base.name}}</div>
 				<div class="tree-child" v-if="item.pluginList && item.pluginList.length">
-					<div v-if="item.pluginId != showPluginId" class="tree-child-more" @click="showChildTree(item.pluginId)"></div>
+					<Icon v-if="item.pluginId != showPluginId" class="tree-child-more" type="ios-arrow-forward" size="24" @click="showChildTree(item.pluginId)" />
 					<plugin-tree v-if="showPluginId == item.pluginId" :plugin-list="item.pluginList" :select-plugin-id="selectPluginId" @plugin-tree-select="pluginTreeSelect"></plugin-tree>
 				</div>
 			</li>
@@ -84,13 +84,9 @@
 	z-index:3;
 }
 .tree-child .tree-child-more{
-	width:20px;
-	height:20px;
-	background-size:100% 100%;
 	position:absolute;
 	left:10px;
 	top:10px;
 	cursor:pointer;
-	background-color:#cccccc;
 }
 </style>

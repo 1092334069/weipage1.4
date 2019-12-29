@@ -144,5 +144,13 @@ module.exports = {
           }]
         }
      ]
+  },
+  resolve: {
+    alias: {
+      '@assets': path.resolve(__dirname, 'assets/'),
+      '@config': path.resolve(__dirname, 'config/'),
+      '@plugin': path.resolve(__dirname, 'plugin/'),
+      '@src': path.resolve(__dirname, 'src/')
+    }
   }
 };

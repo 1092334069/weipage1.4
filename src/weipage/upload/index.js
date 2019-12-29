@@ -1,6 +1,6 @@
 import 'babel-polyfill'
-import '../../../assets/css/reset.css'
-import { weipageAction } from '../../../assets/js/weipage/weipageAction.js'
+import '@assets/css/reset.css'
+import { weipageAction } from '@assets/js/weipage/weipageAction.js'
 
 let isUploading = false
 

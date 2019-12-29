@@ -1,11 +1,11 @@
 import 'babel-polyfill'
-import '../../../assets/css/reset.css'
+import '@assets/css/reset.css'
 import './style.css'
 
-import '../../../plugin/view.js'
+import '@plugin/view.js'
 
-import { dropAction } from '../../../assets/js/weipage/dropAction.js'
-import { viewAction } from '../../../assets/js/weipage/viewAction.js'
+import { dropAction } from '@assets/js/weipage/dropAction.js'
+import { viewAction } from '@assets/js/weipage/viewAction.js'
 
 var weipage = new Vue({
 	el: '#weipage',

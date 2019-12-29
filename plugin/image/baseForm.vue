@@ -28,10 +28,10 @@
 		},
 		methods: {
 			selectImage: function(res) {
-				this.$emit('select-image', res)
+				this.$emit('selectImage', res)
 			},
 			selectActionValue: function(res) {
-				this.$emit('open-interface-tree-model', res)
+				this.$emit('openInterfaceTreeModel', res)
 			}
 		}
 	}

@@ -13,6 +13,7 @@
 			</FormItem>
 		</Form>
 		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<hr/>
 		<Form :label-width="80">
 			<FormItem label="属性">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.attrList" @click="selectAttr(index)">{{item.key}}</div>
@@ -20,7 +21,6 @@
 			</FormItem>
 		</Form>
 		<div class="form-panel" v-if="attrList && attrList.length">
-			<hr/>
 			<Form v-for="(item,index) in attrList" v-if="attrSelectIndex === index" :key="index" :label-width="80">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAttr" />
 				<FormItem label="属性键">
@@ -55,10 +55,10 @@
 		},
 		methods: {
 			selectImage: function(res) {
-				this.$emit('select-image', res)
+				this.$emit('selectImage', res)
 			},
 			selectActionValue: function(res) {
-				this.$emit('open-interface-tree-model', res)
+				this.$emit('openInterfaceTreeModel', res)
 			},
 			parseClass: function(index) {
 				if (index === this.attrSelectIndex) {
@@ -68,7 +68,7 @@
 				}
 			},
 			selectAttrValue: function() {
-				this.$emit('open-interface-tree-model', {
+				this.$emit('openInterfaceTreeModel', {
 					formData: this.attrList,
 					name: this.attrSelectIndex
 				})

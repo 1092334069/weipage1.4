@@ -21,16 +21,17 @@
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="openInterfaceModel" />
 			</FormItem>
 		</Form>
-		<Form v-if="formData.interfaceList && formData.interfaceList.length" :label-width="80">	
+		<div v-if="selectIndex == index" v-for="(itf,index) in formData.interfaceList" class="form-panel">	
 			<hr/>
-			<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
-				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteInterface" />
-				<div v-for="item in itf.param">
-					<input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></input-source>
-				</div>
-			</template>
+			<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteInterface" />
+			<div v-for="item in itf.param">
+				<inputSource
+					:formData="item.value"
+					:name="item.name"
+				></inputSource>
+			</div>
 			<hr/>
-		</Form>
+		</div>
 	</div>
 </template>
 
@@ -47,29 +48,19 @@
 		},
 		data () {
 		    return {
-		    	selectIndex: 0,
-				sourceOptions: [{
-					label: '固定值',
-					value: 'static'
-				},{
-					label: '链接参数',
-					value: 'url'
-				},{
-					label: '缓存',
-					value: 'cookie'
-				}]
+		    	selectIndex: 0
 			}
 		},
 		methods: {
 			openInterfaceModel: function() {
-				this.$emit('open-interface-model', {
+				this.$emit('openInterfaceModel', {
 					formData: this.formData,
 					name: 'interfaceList',
 					isArray: true
 				})
 			},
 			selectImage: function(res) {
-				this.$emit('select-image', res)
+				this.$emit('selectImage', res)
 			},
 			selectInterface: function(index) {
 				this.selectIndex = index

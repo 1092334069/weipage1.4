@@ -31,7 +31,7 @@
 				this.$emit('select-image', res)
 			},
 			selectActionValue: function(res) {
-				this.$emit('open-interface-tree-model', res)
+				this.$emit('openInterfaceTreeModel', res)
 			}
 		}
 	}
