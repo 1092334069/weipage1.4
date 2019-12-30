@@ -33,7 +33,7 @@
 		},
 		methods: {
 			selectImage: function(res) {
-				this.$emit('select-image', res)
+				this.$emit('selectImage', res)
 			},
 			getFormLabel: function(key) {
 				if (styleConfig[key]) {
@@ -48,7 +48,7 @@
 				return 'text'
 			},
 			openStyleModel: function() {
-				this.$emit('open-style-model')
+				this.$emit('openStyleModel')
 			},
 			deleteStyle: function(k) {
 				const style = {}

@@ -5,6 +5,7 @@
 		</select>
 		<input v-else :style="parseNormalStyle()" :value="viewData.base.data" />
 		<Icon size="12" class="drop-icon" type="md-move" />
+		<Icon size="12" class="resize-icon" type="md-resize" />
 	</div>
 </template>
 

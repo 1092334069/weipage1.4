@@ -11,7 +11,7 @@
 				<Input v-model="formData.key" placeholder="请输入字母"></Input>
 			</FormItem>
 			<FormItem label="表单类型">
-				<RadioGroup v-model="item.type">
+				<RadioGroup v-model="formData.type">
 					<Radio label="text">文本</Radio>
 					<Radio label="number">数字</Radio>
 					<Radio label="tel">电话</Radio>
@@ -19,7 +19,7 @@
 				</RadioGroup>
 			</FormItem>
 		</Form>
-		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<actionForm :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></actionForm>
 		<Form v-if="formData.type === 'select'" :label-width="80">
 			<FormItem label="选项">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.optionList" @click="selectOption(index)">{{item.label}}</div>
@@ -60,7 +60,7 @@
 		},
 		methods: {
 			selectImage: function(res) {
-				this.$emit('select-image', res)
+				this.$emit('selectImage', res)
 			},
 			selectActionValue: function(res) {
 				this.$emit('openInterfaceTreeModel', res)

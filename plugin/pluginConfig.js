@@ -10,7 +10,7 @@ const pluginConfig = {
 		},
 		style: {
 			width: 375,
-			height: 50,
+			height: 80,
 			backgroundColor: '#ffffff'
 		},
 		event: {
@@ -37,7 +37,8 @@ const pluginConfig = {
 			actionList: []
 		},
 		style: {
-			width: 100
+			width: 100,
+			height: 100
 		}
 	},
 	form: {
@@ -48,7 +49,6 @@ const pluginConfig = {
 			type: 'text',
 			key: '',
 			actionList: [],
-			selectIndex: 0,
 			optionList: []
 		},
 		style: {

@@ -12,7 +12,7 @@
 				</RadioGroup>
 			</FormItem>
 		</Form>
-		<action-form :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></action-form>
+		<actionForm :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></actionForm>
 		<hr/>
 		<Form :label-width="80">
 			<FormItem label="属性">
