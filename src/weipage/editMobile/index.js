@@ -11,8 +11,7 @@ var weipage = new Vue({
 	el: '#weipage',
 	data() {
 		return {
-			pluginList: [],
-			selectPluginId: ''
+			pluginList: []
 		}
 	}
 })
@@ -40,13 +39,11 @@ dropAction.init({
 	}
 })
 
-/* 父iframe调用方法 */
-// 更新插件列表
-window.uploadPluginList = function(pluginList) {
-	weipage.pluginList = pluginList
-}
-// 修改选择插件id
-window.selectPluginId = function(selectPluginId) {
-	weipage.selectPluginId = selectPluginId
+/*  父iframe调用方法
+*	更新插件列表
+*	必须深度拷贝pluginList
+*/
+window.uploadPluginList = function(pluginList, deep) {
+	weipage.pluginList = JSON.parse(JSON.stringify(pluginList))
 }
 

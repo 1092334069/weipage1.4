@@ -1,3 +1,6 @@
+/*
+*	预览工具方法
+*/
 import { ajaxOnce } from '../ajaxOnce'
 
 class MobileAction {

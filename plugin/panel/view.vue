@@ -1,10 +1,22 @@
 <template>
-	<div class="panel plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parseNormalStyle()">
+	<div class="panel plugin" :class="viewData.base.type" :data-id="viewData.pluginId" :style="parseNormalStyle()">
 		<template v-for="item in viewData.pluginList">
-			<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
-			<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
-			<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :select-plugin-id="selectPluginId"></image-view>
-			<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :select-plugin-id="selectPluginId"></form-view>
+			<panelView
+				v-if="item.pluginType == 'panel'"
+				:viewData="item"
+			></panelView>
+			<textView
+				v-else-if="item.pluginType == 'text'"
+				:viewData="item"
+			></textView>
+			<imageView
+				v-else-if="item.pluginType == 'image'"
+				:viewData="item"
+			></imageView>
+			<formView
+				v-else-if="item.pluginType == 'form'"
+				:viewData="item"
+			></formView>
 		</template>
 		<Icon size="12" class="drop-icon" type="md-move" />
 		<Icon size="12" class="resize-icon" type="md-resize" />
@@ -22,10 +34,6 @@
 				default: function() {
 					return {}
 				}
-			},
-			selectPluginId: {
-				type: String,
-				default: ''
 			}
 		},
 		data () {

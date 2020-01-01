@@ -1,5 +1,5 @@
 <template>
-	<div class="form plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId">
+	<div class="form plugin" :data-id="viewData.pluginId">
 		<select v-if="viewData.base.type === 'select'" :style="parseNormalStyle()">
 			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
 		</select>
@@ -20,10 +20,6 @@
 				default: function() {
 					return {}
 				}
-			},
-			selectPluginId: {
-				type: String,
-				default: ''
 			}
 		},
 		data () {

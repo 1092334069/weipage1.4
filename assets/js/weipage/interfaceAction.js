@@ -1,3 +1,6 @@
+/*
+*	接口公共工具方法
+*/
 class InterfaceAction {
 	constructor() {
 		this.weiPageThis = undefined

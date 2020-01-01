@@ -1,3 +1,6 @@
+/*
+*	表单插件工具操作方法
+*/
 const formAction = {
 	parseKeyList(pname, name, value) {
 		const keyList = []

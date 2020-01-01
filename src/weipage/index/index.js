@@ -104,7 +104,6 @@ var weipage = new Vue({
 		selectPlugin(pluginId) {
 			this.changeFormTab('base')
 			this.selectPluginId = pluginId
-			weipageViewSelectPluginId()
 		},
 		insertPlugin(pluginType) {
 			const plugin = createPlugin(pluginType)
@@ -351,29 +350,16 @@ weipageViewIframe.on('load', function() {
 })
 
 // 更新预览页面数据
-function weipageViewPluginList() {
+function weipageViewPluginList(deep) {
 	if (weipageViewOnload) {
 		const weipageViewWindow = weipageViewIframe[0].contentWindow
 		if (weipageViewWindow && weipageViewWindow.uploadPluginList) {
-			weipageViewWindow.uploadPluginList(weipage.pluginList)
+			weipageViewWindow.uploadPluginList(weipage.pluginList, deep)
 		} else {
 			console.log('not find weipageViewWindow')
 		}
 	} else {
 		weipageViewCallbackList.push(weipageViewPluginList)
-	}
-}
-// 选中插件id
-function weipageViewSelectPluginId() {
-	if (weipageViewOnload) {
-		const weipageViewWindow = weipageViewIframe[0].contentWindow
-		if (weipageViewWindow && weipageViewWindow.selectPluginId) {
-			weipageViewWindow.selectPluginId(weipage.selectPluginId)
-		} else {
-			console.log('not find weipageViewWindow')
-		}
-	} else {
-		weipageViewCallbackList.push(weipageViewSelectPluginId)
 	}
 }
 

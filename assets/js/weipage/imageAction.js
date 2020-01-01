@@ -1,3 +1,6 @@
+/*
+*	图片公共工具方法
+*/
 class ImageAction {
 	constructor() {
 		this.weiPageThis = undefined

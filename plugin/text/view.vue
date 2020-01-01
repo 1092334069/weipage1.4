@@ -1,5 +1,5 @@
 <template>
-	<div class="text plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parseNormalStyle()">
+	<div class="text plugin" :data-id="viewData.pluginId" :style="parseNormalStyle()">
 		<template v-if="viewData.base.data" v-for="item in parseTextHtml(viewData.base.data)">
 			<span>{{item}}</span><br />
 		</template>
@@ -19,10 +19,6 @@
 				default: function() {
 					return {}
 				}
-			},
-			selectPluginId: {
-				type: String,
-				default: ''
 			}
 		},
 		data () {

@@ -1,3 +1,6 @@
+/*
+*	预览视图坐标计算工具方法
+*/
 class ViewAction {
 	constructor() {
 		this.coordinateList = []
@@ -11,7 +14,7 @@ class ViewAction {
 			const height = $plugin.outerHeight(true)
 			const top = $plugin.offset().top
 			const left = $plugin.offset().left
-			const parentPlugin = $plugin.parents('.plugin')
+			const parentPlugin = $plugin.closest('.plugin')
 			let parentPluginId = ''
 			if (parentPlugin.length) {
 				parentPluginId = parentPlugin.attr('data-id')

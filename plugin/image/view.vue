@@ -1,5 +1,5 @@
 <template>
-	<div class="image plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parseNormalStyle()">
+	<div class="image plugin" :data-id="viewData.pluginId" :style="parseNormalStyle()">
 		<img v-if="viewData.base.data" :src="viewData.base.data" />
 		<Icon class="default" v-else type="ios-image-outline" size="100" />
 		<Icon size="12" class="drop-icon" type="md-move" />
@@ -18,10 +18,6 @@
 				default: function() {
 					return {}
 				}
-			},
-			selectPluginId: {
-				type: String,
-				default: ''
 			}
 		},
 		data () {
@@ -33,11 +29,12 @@
 
 <style scoped>
 	.image{
-		display:inline-block;
-		position:relative;
+		display: inline-block;
+		position: relative;
 	}
 	.image img{
-		width:100%;
+		width: 100%;
+		height: 100%;
 	}
 	.image .default{
 		position: absolute;

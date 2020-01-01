@@ -1,3 +1,6 @@
+/*
+*	微页面操作方法
+*/
 class WeipageAction {
 	constructor() {
 

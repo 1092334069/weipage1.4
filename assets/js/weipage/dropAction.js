@@ -1,3 +1,7 @@
+/*
+*	拖拽工具方法
+*/
+
 let $sourcePlugin = $('body')
 let $dropPlugin
 let $resizePlugin
@@ -24,6 +28,7 @@ class DropAction {
 	bindEvent() {
 		const _this = this
 
+		// 插件点击
 		$(document).on('click', '.plugin', function(e) {
 			if (_this.option.mouseDownCallback) {
 				const pluginId = $(this).attr('data-id')
@@ -33,6 +38,7 @@ class DropAction {
 			e.stopPropagation()
 		})
 
+		// 拖拽排序
 		$(document).on('mousedown', '.plugin .drop-icon', function(e) {
 			$sourcePlugin = $(this).closest('.plugin')
 			$(this).closest('.plugin').addClass('drop')
@@ -42,6 +48,7 @@ class DropAction {
 			e.stopPropagation()
 		})
 
+		// 拖拽改变大小
 		$(document).on('mousedown', '.plugin .resize-icon', function(e) {
 			dropData.pluginId = $(this).closest('.plugin').attr('data-id')
 			_this.mouseDownResizeEvent(this)
@@ -49,6 +56,7 @@ class DropAction {
 			e.stopPropagation()
 		})
 
+		// 拖拽移动
 		$(document).on('mousemove', function(e) {
 			if ($dropPlugin) {
 				_this.mouseMoveDropEvent(e)
@@ -58,6 +66,7 @@ class DropAction {
 			}
 		})
 
+		// 拖拽结束
 		$(document).on('mouseup', function() {		
 			if ($dropPlugin) {
 				_this.mouseUpDropEvent()
@@ -102,10 +111,13 @@ class DropAction {
 			const offset = $dropPlugin.offset()
 			const width = $dropPlugin.outerWidth(true)
 			const height = $dropPlugin.outerHeight(true)
-			const parentPlugin = $sourcePlugin.parents('.plugin')
+			const parentPlugin = $sourcePlugin.closest('.plugin')
 			let parentPluginId = ''
 			if (parentPlugin.length) {
-				parentPluginId = parentPlugin.attr('data-id')
+				const tempId = parentPlugin.attr('data-id')
+				if (tempId != dropData.pluginId) {
+					parentPluginId = tempId
+				}
 			}
 			this.option.mouseUpCallback({
 				parentPluginId,

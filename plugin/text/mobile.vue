@@ -1,13 +1,11 @@
 <template>
-	<div class="text plugin" :data-id="viewData.pluginId">
-		<template v-if="parseBaseData()" v-for="item in parseTextHtml(parseBaseData())">
-			<span>{{item}}</span><br />
-		</template>
+	<div class="text plugin" :data-id="viewData.pluginId" :style="parseNormalStyle()">
+		<span>{{viewData.base.data}}</span>
 	</div>
 </template>
 
 <script>
-	import mobileMethods from '../mobileMethods.js'
+	import mobileView from '../mobileView.js'
 
 	export default {
 		name: "textView",
@@ -28,14 +26,14 @@
 		data () {
 		    return {}
 		},
-		methods: mobileMethods
+		methods: mobileView
 	}
 </script>
 
 <style scoped>
 	.text{
-		display:inline-block;
-		max-width:100%;
-		word-wrap:break-word;
+		display: inline-block;
+		max-width: 100%;
+		word-wrap: break-word;
 	}
 </style>
