@@ -34,22 +34,6 @@ function parseUnit(key, str) {
 }
 
 const styleView = {
-	parsePanelStyle: function() {
-		let height
-		if (this.viewData.style && this.viewData.base) {
-			if (this.viewData.style.display === 'none') {
-				return 'display:none'
-			}
-			if (this.viewData.base.type === 'list') {
-				height = 'minHeight:' + (2 * this.viewData.style.height) + ';'
-			} else {
-				height = 'minHeight:' + this.viewData.style.height + ';'
-			}
-			return height
-		} else {
-			return ''
-		}
-	},
 	parseTextHtml: function(data) {
 		return data.split('↵')
 	},
