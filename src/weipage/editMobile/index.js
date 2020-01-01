@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import '@assets/css/reset.css'
+import '@assets/css/weipage/mobile.css'
 import './style.css'
 
 import '@plugin/view.js'

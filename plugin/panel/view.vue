@@ -44,7 +44,7 @@
 </script>
 
 <style scoped>
-.panel{
+.plugin.panel{
     background-repeat: no-repeat;
     background-position: center;
     position: relative;

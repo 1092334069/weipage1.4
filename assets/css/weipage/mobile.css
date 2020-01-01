@@ -1,0 +1,12 @@
+.plugin.panel.list>.plugin:before, .plugin.panel.swiper>.plugin:before{
+	content: '无效';
+	font-size: 14px;
+	color: #ed4014;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+.plugin.panel.list>.plugin:first-child:before, .plugin.panel.swiper>.plugin:first-child:before{
+	display: none;
+}
