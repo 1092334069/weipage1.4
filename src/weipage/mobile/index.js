@@ -16,11 +16,14 @@ var weipage = new Vue({
 		}
 	},
 	methods: {
+		// 获取微页面详情
 		getWeipageDetail(weipageId) {
 			weipageAction.getWeipageDetail({
 				weipageId
 			}, (res) => {
-				if (res.data) {
+				if (res.data && res.data.weipage) {
+					
+					// 预处理滚动事件
 					if (res.data.weipage.countEvent && res.data.weipage.countEvent.eventList.length) {
 						const countEventList = res.data.weipage.countEvent.eventList
 						for (let i = 0; i < countEventList.length; i++) {
@@ -35,8 +38,12 @@ var weipage = new Vue({
 					}
 
 					this.pluginList = res.data.pluginList
+
+					// 深度递归解析所有响应、属性、事件
 					mobileAction.parseConfigurationDataList(0, this.pluginList)
-					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, [], () => {
+
+					// 结合接口详情数据统一执行处理 parseConfigurationDataList 解析出来的结果
+					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, {}, () => {
 						mobileAction.doLoadingAction()
 						this.loadingEnd()
 						this.scrollEvent(res.data.weipage)
@@ -44,9 +51,11 @@ var weipage = new Vue({
 				}
 			})
 		},
+		// 通用事件
 		doPluginEvent(option){
 			mobileAction.doPluginEvent(option.pluginId, option.indexList)
 		},
+		// 加载完毕才启用swiper
 		loadingEnd() {
 			setTimeout(() => {
 				new Swiper('.swiper-container', {
@@ -54,6 +63,7 @@ var weipage = new Vue({
 				})
 			}, 1000)
 		},
+		// 滚动条滚动事件
 		scrollEvent(weipageData) {
 			const screenHeight = isPC() ? 667 : window.screen.height
 			$(window).scroll(() => {
