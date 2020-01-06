@@ -111,13 +111,13 @@
 			<TabPane label="定位" name="position">
 				<ul class="style-list">
 					<li :class="parseClass('position', 'static')" @click="selectStyle('position', 'static')">
-						<img src="../img/style/position-static.png" />
+						<img src="../img/style/position_static.png" />
 					</li>
 					<li :class="parseClass('position', 'absolute')" @click="selectStyle('position', 'absolute')">
-						<img src="../img/style/position-absolute.png" />
+						<img src="../img/style/position_absolute.png" />
 					</li>
 					<li :class="parseClass('position', 'fixed')" @click="selectStyle('position', 'fixed')">
-						<img src="../img/style/position-fixed.png" />
+						<img src="../img/style/position_fixed.png" />
 					</li>
 				</ul>
 				<ul class="style-list">
@@ -137,6 +137,25 @@
 				<ul class="style-list">
 					<li :class="parseClass('zIndex')" @click="selectStyle('zIndex', '1')">
 						<img src="../img/style/zIndex.png" />
+					</li>
+				</ul>
+			</TabPane>
+			<TabPane label="形态" name="display">
+				<ul class="style-list">
+					<li :class="parseClass('display', 'none')" @click="selectStyle('display', 'none')">
+						<img src="../img/style/display_none.png" />
+					</li>
+					<li :class="parseClass('display', 'block')" @click="selectStyle('display', 'block')">
+						<img src="../img/style/display_block.png" />
+					</li>
+					<li :class="parseClass('display', 'inline')" @click="selectStyle('display', 'inline')">
+						<img src="../img/style/display_inline.png" />
+					</li>
+					<li :class="parseClass('display', 'inline-block')" @click="selectStyle('display', 'inline-block')">
+						<img src="../img/style/display_inline-block.png" />
+					</li>
+					<li :class="parseClass('display', 'list-item')" @click="selectStyle('display', 'list-item')">
+						<img src="../img/style/display_list-item.png" />
 					</li>
 				</ul>
 			</TabPane>

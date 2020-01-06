@@ -203,6 +203,11 @@ const styleConfig = {
 		label: '文字间距',
 		isPx: true,
 		form: 'text'
+	},
+	display: {
+		label: '形态',
+		isPx: false,
+		form: 'text'
 	}
 }
 
