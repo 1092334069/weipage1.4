@@ -403,6 +403,24 @@ class MobileAction {
 			return ''
 		}
 	}
+	/*
+	*	解析插件列表
+	*	过滤掉无效插件
+	*/
+	parsePluginList(count, pluginList) {
+		if (count > 10000) {
+			return pluginList
+		}
+		for (let i = 0; i < pluginList.length; i++) {
+			if (pluginList[i].pluginType === 'panel' && pluginList[i].base.type !== 'normal' && pluginList[i].pluginList && pluginList[i].pluginList.length) {
+				pluginList[i].pluginList = pluginList[i].pluginList.splice(0,1)
+			}
+			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
+				this.parsePluginList(count++, pluginList[i].pluginList)
+			}
+		}
+		return pluginList
+	}
 }
 
 const mobileAction = new MobileAction()

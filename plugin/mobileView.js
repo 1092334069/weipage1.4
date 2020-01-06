@@ -16,7 +16,7 @@ function parseUnit(key, str) {
 		} else if (typeof str === 'string') {
 			const strList = str.trim().split(' ')
 			for (let i = 0; i < strList.length; i++) {
-				if (strList[i].indexOf('%') > -1 || strList[i].indexOf('px') > -1) {
+				if (strList[i].indexOf('%') > -1 || strList[i].indexOf('px') > -1 || strList[i].indexOf('vw') > -1 || strList[i].indexOf('vh') > -1) {
 					break
 				}
 				const num = parseFloat(strList[i])

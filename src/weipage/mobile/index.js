@@ -16,7 +16,16 @@ var weipage = new Vue({
 		}
 	},
 	methods: {
-		// 获取微页面详情
+		/* 
+		*	获取微页面详情
+		*	1、获取微页面数据详情
+		*	2、处理插件列表
+		*	3、对插件的响应、属性、事件进行梳理
+		*	4、获取微页面详情加载触发接口的数据
+		*	5、执行加载触发响应
+		*	6、加载页面以来第三方库
+		*	7、启动滚动事件
+		*/
 		getWeipageDetail(weipageId) {
 			weipageAction.getWeipageDetail({
 				weipageId
@@ -37,8 +46,8 @@ var weipage = new Vue({
 						}
 					}
 
-					this.pluginList = res.data.pluginList
-
+					// 插件处理，过滤掉无效插件
+					this.pluginList = mobileAction.parsePluginList(0, res.data.pluginList)
 					// 深度递归解析所有响应、属性、事件
 					mobileAction.parseConfigurationDataList(0, this.pluginList)
 
