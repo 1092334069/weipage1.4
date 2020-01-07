@@ -113,6 +113,5 @@
 }
 .panel{
 	min-height: 95vh;
-	padding-left: 20px;
 }
 </style>

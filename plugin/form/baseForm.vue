@@ -1,6 +1,6 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="名称">
 				<Input v-model="formData.name"></Input>
 			</FormItem>
@@ -20,7 +20,7 @@
 			</FormItem>
 		</Form>
 		<actionForm :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></actionForm>
-		<Form v-if="formData.type === 'select'" :label-width="80">
+		<Form v-if="formData.type === 'select'" :label-width="100">
 			<FormItem label="选项">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.optionList" @click="selectOption(index)">{{item.label}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addOption" />

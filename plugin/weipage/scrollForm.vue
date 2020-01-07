@@ -1,6 +1,6 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="事件列表">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.scrollEvent.eventList" @click="selectEvent(index)">{{index+1}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
@@ -10,7 +10,7 @@
 			<hr/>
 			<div v-for="(item,index) in formData.scrollEvent.eventList" v-if="formData.scrollEvent.selectIndex === index">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteEvent" />
-				<Form :label-width="80">
+				<Form :label-width="100">
 					<FormItem label="方向">
 						<RadioGroup v-model="item.direction">
 							<Radio label="bottom">向下</Radio>
@@ -24,7 +24,7 @@
 						</RadioGroup>
 					</FormItem>
 				</Form>
-				<Form v-if="item.type === 'normal'" :label-width="80">
+				<Form v-if="item.type === 'normal'" :label-width="100">
 					<FormItem label="元件">
 						<div class="form-item" @click="openPluginTreeModel(item)">{{item.value.name}}</div>
 					</FormItem>
@@ -35,7 +35,7 @@
 					</FormItem>
 				</Form>
 				<template v-else>
-					<Form :label-width="80">
+					<Form :label-width="100">
 						<FormItem label="接口">
 							<div class="form-item" @click="openInterfaceModel(item)">{{item.value.name}}</div>
 						</FormItem>
@@ -58,7 +58,7 @@
 							></input-source>
 						</div>
 					</template>
-					<Form :label-width="80">
+					<Form :label-width="100">
 						<FormItem label="累加参数">
 							<div class="form-item" @click="openInteraceTreeModel(item)">{{item.keyword.name}}</div>
 						</FormItem>

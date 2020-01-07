@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Form ref="styleForm" :label-width="80">
+		<Form ref="styleForm" :label-width="100">
 			<FormItem v-for="(val, key, index) in styleData" :label="getFormLabel(key)" :key="key">
 				<image-upload v-if="key === 'backgroundImage'" lable="背景图片" :formData="styleData" :name="key" @selectImage="selectImage"></image-upload>
 				<ColorPicker v-else-if="key === 'color' || key === 'backgroundColor'" v-model="styleData[key]" alpha />
@@ -39,7 +39,7 @@
 				if (styleConfig[key]) {
 					return styleConfig[key].label
 				}
-				return ''
+				return key
 			},
 			getFormForm: function(key) {
 				if (styleConfig[key]) {

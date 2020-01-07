@@ -1,6 +1,6 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="名称">
 				<Input v-model="formData.name"></Input>
 			</FormItem>

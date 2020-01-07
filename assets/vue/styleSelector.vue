@@ -175,6 +175,23 @@
 					</li>
 				</ul>
 			</TabPane>
+			<TabPane label="自定义" name="custom">
+				<div class="tips">
+					<p>使用提示：key 必须是 css 规范中的命名，使用驼峰命名方式，例如：justify-content 写成 justifyConetnt 。</p>
+					<p>value 是 css 规范中的值，不需要写成驼峰命名。</p>
+				</div>
+				<div class="form">
+					<Form ref="custom" :model="custom" :rules="rule" :label-width="100">
+						<FormItem label="key" prop="key">
+							<Input size="large" v-model="custom.key"></Input>
+						</FormItem>
+						<FormItem label="value" prop="value">
+							<Input size="large" v-model="custom.value"></Input>
+						</FormItem>
+					</Form>
+				</div>
+				<Button class="customBtn" type="primary" @click="createCustomStyle">确定</Button>
+			</TabPane>
 		</Tabs>
 	</div>
 </template>
@@ -191,7 +208,20 @@
 			}
 		},
 		data () {
-			return {}
+			return {
+				custom: {
+					key: '',
+					value: ''
+				},
+				rule: {
+					key: [
+						{ required: true, message: 'key不为空', trigger: 'blur' }
+					],
+					value: [
+						{ required: true, message: 'value不为空', trigger: 'blur' }
+					]
+				}
+			}
 		},
 		methods: {
 			parseClass: function(key, value) {
@@ -219,9 +249,17 @@
 				}
 			},
 			selectStyle: function(key, value) {
+				this.$Message.success('添加样式成功')
 				this.$emit('select-style', {
 					key,
 					value
+				})
+			},
+			createCustomStyle: function() {
+				this.$refs['custom'].validate((valid) => {
+					if (valid) {
+						this.selectStyle(this.custom.key, this.custom.value)
+					}
 				})
 			}
 		}
@@ -245,5 +283,14 @@ style-list{
 }
 .style-list li.current{
 	opacity: 0.2;
+}
+.tips{
+	font-size: 12px;
+	color: #ed4014;
+	line-height: 18px;
+	padding: 0 0 20px 48px;
+}
+.customBtn{
+	margin: 20px 0 0 100px;
 }
 </style>

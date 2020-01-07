@@ -1,6 +1,6 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="事件列表">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.eventList" @click="selectEvent(index)">{{index+1}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
@@ -10,7 +10,7 @@
 			<hr/>
 			<template v-for="(item,index) in formData.eventList" v-if="selectIndex === index">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteEvent" />
-				<Form :label-width="80">
+				<Form :label-width="100">
 					<FormItem label="响应条件">
 						<RadioGroup v-model="item.type" @on-change="eventTypeChange">
 							<Radio label="interface">接口事件</Radio>
@@ -19,12 +19,12 @@
 						</RadioGroup>
 					</FormItem>
 				</Form>
-				<Form v-if="item.type === 'link'" :label-width="80">
+				<Form v-if="item.type === 'link'" :label-width="100">
 					<FormItem label="链接地址">
 						<Input v-model="item.value"></Input>
 					</FormItem>
 				</Form>
-				<Form v-if="item.type === 'normal'" :label-width="80">
+				<Form v-if="item.type === 'normal'" :label-width="100">
 					<FormItem label="元件">
 						<div class="form-item" @click="openPluginTreeModel(item)">{{item.value.name}}</div>
 					</FormItem>
@@ -35,7 +35,7 @@
 					</FormItem>
 				</Form>
 				<template v-if="item.type === 'interface'">
-					<Form :label-width="80">
+					<Form :label-width="100">
 						<FormItem label="接口">
 							<div class="form-item" @click="openInterfaceModel(item)">{{item.value.name}}</div>
 						</FormItem>
@@ -64,7 +64,7 @@
 						</div>
 					</template>
 				</template>
-				<Form v-else :label-width="80">
+				<Form v-else :label-width="100">
 					<FormItem label="触发状态">
 						<RadioGroup v-model="item.status.attr">
 							<Radio label="immediately">立即触发</Radio>

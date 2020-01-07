@@ -1,6 +1,6 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="名称">
 				<Input v-model="formData.name"></Input>
 			</FormItem>
@@ -14,14 +14,14 @@
 		</Form>
 		<actionForm :formData="formData" @selectActionValue="selectActionValue" @selectImage="selectImage"></actionForm>
 		<hr/>
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="属性">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.attrList" @click="selectAttr(index)">{{item.key}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAttr" />
 			</FormItem>
 		</Form>
 		<div class="form-panel" v-if="attrList && attrList.length">
-			<Form v-for="(item,index) in attrList" v-if="attrSelectIndex === index" :key="index" :label-width="80">
+			<Form v-for="(item,index) in attrList" v-if="attrSelectIndex === index" :key="index" :label-width="100">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAttr" />
 				<FormItem label="属性键">
 					<Input v-model="item.key" placeholder="请输入字母"></Input>

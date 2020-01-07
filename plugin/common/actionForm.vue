@@ -2,7 +2,7 @@
 	<div>
 		<hr/>
 		<div class="form">
-			<Form :label-width="80">
+			<Form :label-width="100">
 				<FormItem label="响应">
 					<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
 					<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addAction" />
@@ -10,7 +10,7 @@
 			</Form>
 		</div>
 		<div v-if="formData.actionList && formData.actionList.length" class="form">
-			<Form v-for="(item,index) in formData.actionList" v-if="selectIndex === index" :key="index" :label-width="80">
+			<Form v-for="(item,index) in formData.actionList" v-if="selectIndex === index" :key="index" :label-width="100">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteAction" />
 				<FormItem label="响应名">
 					<Input v-model="item.name"></Input>

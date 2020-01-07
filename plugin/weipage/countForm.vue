@@ -1,12 +1,12 @@
 <template>
 	<div class="form">
-		<Form :label-width="80">
+		<Form :label-width="100">
 			<FormItem label="计数器列表">
 				<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.countEvent.eventList" @click="selectEvent(index)">{{item.name}}</div>
 				<Icon class="add-btn" type="ios-add-circle-outline" size="24" @click="addEvent" />
 			</FormItem>
 		</Form>
-		<Form v-if="formData.countEvent.eventList && formData.countEvent.eventList.length" :label-width="80">
+		<Form v-if="formData.countEvent.eventList && formData.countEvent.eventList.length" :label-width="100">
 			<hr/>
 			<template v-for="(item,index) in formData.countEvent.eventList" v-if="selectIndex === index">
 				<Icon class="delete-btn" type="ios-close-circle-outline" size="24" @click="deleteOption(index)" />
