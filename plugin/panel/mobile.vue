@@ -1,9 +1,9 @@
 <template>
 	<div class="panel plugin" 
-		:data-id="viewData.pluginId"
+		:id="viewData.pluginId"
 		:class="viewData.base.type"
 		:style="parseNormalStyle()"
-		@click="doEvent(viewData.pluginId)">
+		@click="doEvent(viewData.pluginId, viewData.indexs)">
 			<template v-for="item in viewData.pluginList">
 				<panelView 
 					v-if="item.pluginType == 'panel'"

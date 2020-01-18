@@ -127,6 +127,7 @@
 				const uuid = getLocalUuid()
 				actionList.push({
 					actionId: uuid,
+					indexs: '',
 					name: '响应',
 					namespace: 'base',
 					key: 'data',

@@ -14,9 +14,9 @@ $.ajax({
 	}
 })
 
-function getLocalUuid() {
+function getLocalUuid(pluginType) {
 	const timeString = Date.now()
-	return 'p' + localKey + timeString
+	return pluginType + localKey + timeString
 }
 
 function createPlugin(pluginType) {
@@ -24,7 +24,8 @@ function createPlugin(pluginType) {
 		return
 	}
 	const plugin = JSON.parse(JSON.stringify(pluginConfig[pluginType]))
-	plugin['pluginId'] = getLocalUuid()
+	plugin['pluginId'] = getLocalUuid(pluginType)
+	plugin['indexs'] = ''
 	return plugin
 }
 

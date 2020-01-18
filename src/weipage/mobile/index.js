@@ -12,6 +12,7 @@ var weipage = new Vue({
 	el: '#weipage',
 	data() {
 		return {
+			staticPluginList: [],
 			pluginList: []
 		}
 	},
@@ -46,14 +47,14 @@ var weipage = new Vue({
 						}
 					}
 
-					// 插件处理，过滤掉无效插件
-					this.pluginList = mobileAction.parsePluginList(0, res.data.pluginList)
-					// 深度递归解析所有响应、属性、事件
-					mobileAction.parseConfigurationDataList(0, this.pluginList)
+					// 存储源插件数据
+					this.staticPluginList = res.data.pluginList
 
 					// 结合接口详情数据统一执行处理 parseConfigurationDataList 解析出来的结果
 					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, {}, () => {
-						mobileAction.doLoadingAction()
+						// 	预初始化插件及响应
+						mobileAction.initPluginList(this.staticPluginList)
+						this.pluginList = mobileAction.fissionData(this.staticPluginList)
 						this.loadingEnd()
 						this.scrollEvent(res.data.weipage)
 					})
@@ -62,7 +63,7 @@ var weipage = new Vue({
 		},
 		// 通用事件
 		doPluginEvent(option){
-			mobileAction.doPluginEvent(option.pluginId, option.indexList)
+			mobileAction.doPluginEvent(option.pluginId, option.indexs)
 		},
 		// 加载完毕才启用swiper
 		loadingEnd() {

@@ -14,8 +14,8 @@ class MobileAction {
 		// 事件数据列表
 		this.eventDataList = []
 
-		// 插件属性数据列表
-		this.pluginAttrDataList = []
+		// 属性数据列表
+		this.attrDataList = []
 
 		// 计数器数据列表
 		this.countDataList = []
@@ -57,19 +57,14 @@ class MobileAction {
 	// 获取插件属性
 	getPluginAttr(pluginOption) {
 		let v = ''
-		if (this.pluginAttrDataList.length && pluginOption && pluginOption.pluginId && pluginOption.indexList && pluginOption.indexList.length) {
-			for (let i = 0; i < this.pluginAttrDataList.length; i++) {
-				if (this.pluginAttrDataList[i].pluginId === pluginOption.pluginId) {
-					v = this.pluginAttrDataList[i].value
-					for (let j = 0; j < pluginOption.indexList.length; j++) {
-						if (Array.isArray(v)) {
-							v = v[pluginOption.indexList[j]]
-						}
-					}
+		if (this.attrDataList.length && pluginOption && pluginOption.pluginId) {
+			for (let i = 0; i < this.attrDataList.length; i++) {
+				if (this.attrDataList[i].pluginId === pluginOption.pluginId && this.attrDataList[i].indexs === pluginOption.indexs) {
+					v = this.attrDataList[i].value
 				}
 			}
 		}
-		return v ? v : ''
+		return v || ''
 	}
 	// 设置自增自减
 	setCountAction(countId) {
@@ -89,6 +84,10 @@ class MobileAction {
 	*	param: {
 	*		count 	计数器（防止死循环）
 	*		list 	接口列表
+	*		pluginOption {
+	*			pluginId
+	*			indexs
+	*		}
 	*	}
 	*/
 	doInterfaceListAction(count, list, pluginOption, resCallback) {
@@ -108,8 +107,8 @@ class MobileAction {
 			dataType: param.dataType,
 			success: function(res) {
 				if (res) {
-					_this.setInterfaceData(param.url, res, param.keyList)
-					_this.doPluginAttr(param.url)
+					_this.setInterfaceData(param.url, res, param.keyList, pluginOption)
+					//_this.doPluginAttr(param.url)
 				}
 				_this.countAction()
 				_this.countAction = () => {}
@@ -130,7 +129,10 @@ class MobileAction {
 	*	}
 	*/
 	doAction(actionItem){
-		const actionData = this.parseActionDataValue(actionItem.action.type, actionItem.action.value)
+		let actionData = ''
+		if (actionItem.action.type === 'interface') {
+			actionData = this.getInterfaceKeyData(actionItem.action.value.url, actionItem.action.value.keyList, actionItem.indexs)
+		}
 		if (actionItem.action.namespace && actionItem.action.key) {
 			if (actionItem.action.namespace === 'base') {
 				actionItem.plugin.base[actionItem.action.key] = actionData
@@ -142,21 +144,10 @@ class MobileAction {
 	/* 
 	*	根据响应id查找到响应并执行
 	*/
-	doActionById(actionId) {
+	doActionOne(actionId, indexs) {
 		for (let i = 0; i < this.actionDataList.length; i++) {
 			const actionItem = this.actionDataList[i]
-			if (actionItem.action && actionItem.actionId === actionId) {
-				this.doAction(actionItem)
-			}
-		}
-	}
-	/*
-	*	执行加载完成立即触发的响应
-	*/
-	doLoadingAction() {
-		for (let i = 0; i < this.actionDataList.length; i++) {
-			const actionItem = this.actionDataList[i]
-			if (actionItem.action && actionItem.action.condition === 'loading') {
+			if (actionItem.action && actionItem.actionId === actionId && actionItem.indexs && actionItem.indexs === actionItem) {
 				this.doAction(actionItem)
 			}
 		}
@@ -167,12 +158,12 @@ class MobileAction {
 	*		eventList 	事件列表
 	*		pluginOption {
 	*			pluginId 	插件id
-	*			indexList 	插件下标标识（列表获取属性时使用）
+	*			indexs 	插件下标标识（列表获取属性时使用）
 	*		}
 	*	}
 	*/
 	doEventList(count, eventList, pluginOption) {
-		if (count > 100000 || !eventList || !eventList.length) {
+		if (count > 1000000 || !eventList || !eventList.length) {
 			return
 		}
 		const item = eventList.splice(0, 1)
@@ -193,7 +184,7 @@ class MobileAction {
 					this.doEventList(count += 1, eventList, pluginOption)
 				})
 			} else if (event.type === 'normal') {
-				this.doActionById(event.value.actionId)
+				this.doActionOne(event.value.actionId, pluginOption.indexs)
 				this.doEventList(count += 1, eventList, pluginOption)
 			} else if (event.type === 'link') {
 				if (window.parent.pageReload) {
@@ -211,16 +202,16 @@ class MobileAction {
 	/* 	执行事件
 	*	param: {
 	*		pluginId 	插件id
-	*		indexList 	插件下标标识（列表获取属性时使用）
+	*		indexs 		插件下标标识（列表获取属性时使用）
 	*	}
 	*/
-	doPluginEvent(pluginId, indexList) {
+	doPluginEvent(pluginId, indexs) {
 		const eventDataList = JSON.parse(JSON.stringify(this.eventDataList))
 		for (let i = 0; i < eventDataList.length; i++) {
 			if (eventDataList[i].pluginId === pluginId) {
 				this.doEventList(0, eventDataList[i].eventList, {
 					pluginId,
-					indexList
+					indexs
 				})
 				break
 			}
@@ -228,9 +219,9 @@ class MobileAction {
 	}
 	// 执行插件属性
 	doPluginAttr(url) {
-		for (let i = 0; i < this.pluginAttrDataList.length; i++) {
-			if (url === this.pluginAttrDataList[i].url) {
-				this.pluginAttrDataList[i].value = this.getInterfaceKeyData(url, this.pluginAttrDataList[i].keyList)
+		for (let i = 0; i < this.attrDataList.length; i++) {
+			if (url === this.attrDataList[i].url) {
+				this.attrDataList[i].value = this.getInterfaceKeyData(url, this.attrDataList[i].keyList, this.attrDataList[i].indexs)
 			}
 		}
 	}
@@ -250,7 +241,10 @@ class MobileAction {
 	*	解析请求参数
 	*	param: {
 	*		paramList 		参数列表
-	*		pluginOption	插件配置（用于列表的属性遍历）
+	*		pluginOption {
+	*			pluginId
+	*			indexs
+	*		}
 	*	}
 	*/
 	parseAJaxData(paramList, pluginOption) {
@@ -266,8 +260,11 @@ class MobileAction {
 	*		value: {
 	*			data 	数据值
 	*			source 	数据源
-	*		},
-	*		pluginOption 插件配置（用于列表的属性遍历）
+	*		}
+	*		pluginOption {
+	*			pluginId
+	*			indexs
+	*		}
 	*	}
 	*/
 	parseAjaxDataValue(value, pluginOption) {
@@ -287,57 +284,10 @@ class MobileAction {
 			return ''
 		}
 	}
-	/* 	深度解析配置数据
-	*	actionDataList 		所有响应列表
-	*	pluginAttrDataList	所有属性列表
-	*	eventDataList		所有事件列表
-	*/
-	parseConfigurationDataList(count, pluginList) {
-		if (count > 100000) {
-			return
-		}
-		for (let i = 0; i < pluginList.length; i++) {
-			if (pluginList[i].base && pluginList[i].base.actionList && pluginList[i].base.actionList.length) {
-				for (let j = 0; j < pluginList[i].base.actionList.length; j++) {
-					this.actionDataList.push({
-						actionId: pluginList[i].base.actionList[j].actionId,
-						action: pluginList[i].base.actionList[j],
-						plugin: pluginList[i]
-					})
-				}
-			}
-			if (pluginList[i].base && pluginList[i].base.attrList && pluginList[i].base.attrList.length) {
-				for (let j = 0; j < pluginList[i].base.attrList.length; j++) {
-					this.pluginAttrDataList.push({
-						pluginId: pluginList[i].pluginId,
-						key: pluginList[i].base.attrList[j].key,
-						value: '',
-						url: pluginList[i].base.attrList[j].url,
-						keyList: pluginList[i].base.attrList[j].keyList
-					})
-				}
-			}
-			if (pluginList[i].event && pluginList[i].event.eventList && pluginList[i].event.eventList.length) {
-				this.eventDataList.push({
-					pluginId: pluginList[i].pluginId,
-					eventList: pluginList[i].event.eventList
-				})
-			}
-			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
-				this.parseConfigurationDataList(count += 1, pluginList[i].pluginList)
-			}
-		}
-	}
-	// 获取相应数据值
-	parseActionDataValue(type, value) {
-		if (type === 'interface') {
-			return this.getInterfaceKeyData(value.url, value.keyList)
-		}
-	}
 	// 设置接口数据
-	setInterfaceData(url, data, keyList) {
+	setInterfaceData(url, data, keyList, pluginOption) {
 		if (keyList && keyList.length) {
-			const mergeData = this.getInterfaceKeyData(url, keyList)
+			const mergeData = this.getInterfaceKeyData(url, keyList, pluginOption.indexs)
 			if (Array.isArray(mergeData)) {
 				this.mergeDataByKeyList(0, data, mergeData, keyList)
 				for (let i = 0; i < this.interfaceDataList.length; i++) {
@@ -353,8 +303,9 @@ class MobileAction {
 			})
 		}
 	}
+	// 	合并接口数据
 	mergeDataByKeyList(count, sourceData, mergeData, keyList) {
-		if (count  > 100000 || !keyList.length) {
+		if (count  > 1000000 || !keyList.length) {
 			return
 		}
 		const key = keyList.splice(0,1)[0]
@@ -381,19 +332,42 @@ class MobileAction {
 		}
 		return data
 	}
-	// 获取接口键值
-	getInterfaceKeyData(url, keyList) {
+	/* 
+	*	获取接口键值
+	*	当键值为对象时取对象属性；当键值为数组时遍历数组，逐个获取数组对象属性
+	*/
+	getInterfaceKeyData(url, keyList, indexs) {
 		try {
+			let indexList = []
+			if (indexs) {
+				const indexLi = indexs.toString().split(',')
+				if (indexLi.length) {
+					for (let i = indexLi.length - 1; i >= 0; i--) {
+						indexList.push(indexLi[i])
+					}
+				}
+			}
 			let data = this.getInterfaceData(url)
 			for (let i = keyList.length - 1; i >= 0; i--) {
 				if (data.hasOwnProperty(keyList[i])){
 					data = data[keyList[i]]
-				} else if (Array.isArray(data)) {
-					let list = []
-					for (let j = 0; j < data.length; j++) {
-						list.push(data[j][keyList[i]])
+				} else if (Array.isArray(data) && data.length) {
+					let d = []
+					let index = 0
+					const temp = indexList.pop()
+					if (temp) {
+						index = temp
 					}
-					data = list
+					if (data.length > index) {
+						const item = data[index]
+						if (item.hasOwnProperty(keyList[i])) {
+							data = item[keyList[i]]
+						} else {
+							data = ''
+						}
+					} else {
+						data = ''
+					}
 				} else {
 					data = ''
 				}
@@ -404,22 +378,157 @@ class MobileAction {
 		}
 	}
 	/*
-	*	解析插件列表
-	*	过滤掉无效插件
+	*	初始化插件列表（过滤掉无效插件）
 	*/
-	parsePluginList(count, pluginList) {
-		if (count > 10000) {
+	initPluginList(pluginList) {
+		this.initParsePluginList(0, pluginList)
+	}
+	/*
+	*	解析初始化插件列表
+	*/
+	initParsePluginList(count, pluginList) {
+		if (count > 1000000) {
+			return
+		}
+		for (let i = 0; i < pluginList.length; i++) {
+			// 当数据是面板列表时过滤掉无效子插件
+			let firstPluginList = ''
+			if (this.checkPanelList(pluginList[i]) && pluginList[i].pluginList.length) {
+				firstPluginList = pluginList[i].pluginList.splice(0, 1)
+				pluginList[i].pluginList = firstPluginList
+			}
+			if (pluginList[i].base.actionList && pluginList[i].base.actionList.length) {
+				for (let j = 0; j < pluginList[i].base.actionList.length; j++) {
+					const actionItem = pluginList[i].base.actionList[j]
+					// 执行立即加载响应
+					if (actionItem.condition === 'loading') {
+						this.doAction({
+							actionId: actionItem.actionId,
+							indexs: actionItem.indexs,
+							action: actionItem,
+							plugin: pluginList[i]
+						})
+
+						// 执行响应之后对数据进行检测，当数据时列表需要复制插件
+						if (firstPluginList) {
+							const plugins = []
+							if (pluginList[i].base.data && Array.isArray(pluginList[i].base.data)) {
+								for (let m = 0; m < pluginList[i].base.data.length; m++) {
+									const tempPlugins = this.copyPluginList(0, firstPluginList, m)
+									for (let n = 0; n < tempPlugins.length; n++) {
+										plugins.push(tempPlugins[n])
+									}
+								}
+							}
+							pluginList[i].pluginList = plugins
+						}
+					}
+				}
+			}
+			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
+				this.initParsePluginList(count++, pluginList[i].pluginList)
+			}
+		}
+	}
+	/*
+	*	校验是否时面板列表
+	*/
+	checkPanelList(plugin) {
+		if (plugin.pluginType === 'panel' && plugin.base.type !== 'normal') {
+			return true
+		}
+		return false
+	}
+	/*
+	*	裂变数据
+	*/
+	fissionData(pluginList) {
+		this.actionDataList = []
+		this.attrDataList = []
+		this.eventDataList = []
+		this.parseConfigurationDataList(0, pluginList)
+		return pluginList
+	}
+	/* 	深度解析配置数据
+	*	actionDataList 		所有响应列表
+	*	attrDataList		所有属性列表
+	*	eventDataList		所有事件列表
+	*/
+	parseConfigurationDataList(count, pluginList) {
+		if (count > 1000000) {
+			return
+		}
+		for (let i = 0; i < pluginList.length; i++) {
+			if (pluginList[i].base && pluginList[i].base.actionList && pluginList[i].base.actionList.length) {
+				for (let j = 0; j < pluginList[i].base.actionList.length; j++) {
+					this.actionDataList.push({
+						actionId: pluginList[i].base.actionList[j].actionId,
+						indexs: pluginList[i].base.actionList[j].indexs,
+						action: pluginList[i].base.actionList[j],
+						plugin: pluginList[i]
+					})
+				}
+			}
+			if (pluginList[i].base && pluginList[i].base.attrList && pluginList[i].base.attrList.length) {
+				for (let j = 0; j < pluginList[i].base.attrList.length; j++) {
+					this.attrDataList.push({
+						pluginId: pluginList[i].pluginId,
+						indexs: pluginList[i].indexs,
+						key: pluginList[i].base.attrList[j].key,
+						value: '',
+						url: pluginList[i].base.attrList[j].url,
+						keyList: pluginList[i].base.attrList[j].keyList
+					})
+				}
+			}
+			if (pluginList[i].event && pluginList[i].event.eventList && pluginList[i].event.eventList.length) {
+				this.eventDataList.push({
+					pluginId: pluginList[i].pluginId,
+					indexs: pluginList[i].indexs,
+					eventList: pluginList[i].event.eventList
+				})
+			}
+			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
+				this.parseConfigurationDataList(count += 1, pluginList[i].pluginList)
+			}
+		}
+	}
+	/*
+	*	复制插件列表
+	*/
+	copyPluginList(count, plugins, indexs) {
+		const pluginList = JSON.parse(JSON.stringify(plugins))
+		if (count > 1000000) {
 			return pluginList
 		}
 		for (let i = 0; i < pluginList.length; i++) {
-			if (pluginList[i].pluginType === 'panel' && pluginList[i].base.type !== 'normal' && pluginList[i].pluginList && pluginList[i].pluginList.length) {
-				pluginList[i].pluginList = pluginList[i].pluginList.splice(0,1)
+			const plugin = pluginList[i]
+			this.createIndexs(plugin, indexs)
+			if (plugin.base.hasOwnProperty('actionList') && plugin.base.actionList.length) {
+				for (let j = 0; j < plugin.base.actionList.length; j++) {	
+					this.createIndexs(plugin.base.actionList[j], indexs)
+				}
 			}
-			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
-				this.parsePluginList(count++, pluginList[i].pluginList)
+			if (plugin.base.hasOwnProperty('attrList') && plugin.base.attrList.length) {
+				for (let j = 0; j < plugin.base.attrList.length; j++) {
+					this.createIndexs(plugin.base.attrList[j], indexs)
+				}
+			}
+			if (plugin.hasOwnProperty('pluginList') && plugin.pluginList.length) {
+				plugin.pluginList = this.copyPluginList(count++, plugin.pluginList, indexs)
 			}
 		}
 		return pluginList
+	}
+	/*
+	*	创建下标
+	*/
+	createIndexs(option, indexs) {
+		if (option['indexs']) {
+			option['indexs'] += `${indexs},`
+		} else {
+			option['indexs'] = indexs
+		}
 	}
 }
 

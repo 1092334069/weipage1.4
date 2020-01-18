@@ -80,6 +80,7 @@
 				const uuid = getLocalUuid()
 				this.attrList.push({
 					attrId: uuid,
+					indexs: '',
 					key: '',
 					name: '请选择属性',
 					url: '',

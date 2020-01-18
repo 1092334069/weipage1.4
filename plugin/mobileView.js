@@ -48,9 +48,10 @@ const mobileView = {
 		}
 		return style
 	},
-	doEvent: function(pluginId) {
+	doEvent: function(pluginId, indexs) {
 		this.$emit('do-event', {
-			pluginId
+			pluginId,
+			indexs
 		})
 	}
  }
