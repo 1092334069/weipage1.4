@@ -113,7 +113,7 @@ const localInfo = {
 	}
 }
 
-const fileInfo = {
+const toolInfo = {
 	sketchUpload: function(parameter, callback) {
 		if (parameter.param.userIdStr) {
 			fileAction.sketchUpload(parameter.req, parameter.param.userIdStr, callback)
@@ -155,6 +155,16 @@ const fileInfo = {
 				message: '未登录'
 			}))
 		}
+	},
+	chromeToWeipage: function(parameter, callback) {
+		if (parameter.param.userIdStr) {
+			
+		} else {
+			callback(JSON.stringify({
+				code: 700,
+				message: '未登录'
+			}))
+		}	
 	}
 }
 
@@ -166,5 +176,5 @@ module.exports = {
 	userInfo,
 	weipageInfo,
 	localInfo,
-	fileInfo
+	toolInfo
 }

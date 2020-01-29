@@ -52,9 +52,7 @@ var weipage = new Vue({
 
 					// 结合接口详情数据统一执行处理 parseConfigurationDataList 解析出来的结果
 					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, {}, () => {
-						// 	预初始化插件及响应
-						mobileAction.initPluginList(this.staticPluginList)
-						this.pluginList = mobileAction.fissionData(this.staticPluginList)
+						this.initWeipage()
 						this.loadingEnd()
 						this.scrollEvent(res.data.weipage)
 					})
@@ -81,14 +79,20 @@ var weipage = new Vue({
 				const height = $(window).height()
 				if (scrollTop <= 0) {
 					mobileAction.doScrollEvent('top', weipageData.scrollEvent.eventList, () => {
-						mobileAction.doLoadingAction()
+						this.initWeipage()
 					})
 				} else if (scrollTop >= height - screenHeight) {
 					mobileAction.doScrollEvent('bottom', weipageData.scrollEvent.eventList, () => {
-						mobileAction.doLoadingAction()
+						this.initWeipage()
 					})
 				}
 			})
+		},
+		// 初始化微页面
+		initWeipage() {
+			const staticPluginList = JSON.parse(JSON.stringify(this.staticPluginList))
+			mobileAction.initPluginList(staticPluginList)
+			this.pluginList = mobileAction.fissionData(staticPluginList)
 		}
 	}
 })

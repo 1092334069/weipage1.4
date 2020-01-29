@@ -65,7 +65,7 @@ function sketchToWeipage(sketctData, localKey, callback) {
 			const coordinateList = parseCoordinateList(layerList)
 			const imageSource = parseImageList(layerList, imageFileList)
 			const scaleplateList = parseScaleplate(coordinateList)
-			const pluginList = pluginAction.createPluginList(localKey, scaleplateList, layerList, imageSource, '/nodeServer' + imgFileDir)
+			const pluginList = pluginAction.createSketchPluginList(localKey, scaleplateList, layerList, imageSource, '/nodeServer' + imgFileDir)
 			callback(JSON.stringify({
 				code: 200,
 				data: {

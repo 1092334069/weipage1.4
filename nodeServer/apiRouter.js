@@ -61,11 +61,14 @@ const apiRouter = [{
 	pathname: '/api/local/getLocalKey',
 	action: apiAction.localInfo.getLocalKey
 },{
-	pathname: '/api/file/sketchUpload',
-	action: apiAction.fileInfo.sketchUpload
+	pathname: '/api/tool/sketchUpload',
+	action: apiAction.toolInfo.sketchUpload
 },{
-	pathname: '/api/file/sketchToWeipage',
-	action: apiAction.fileInfo.sketchToWeipage
+	pathname: '/api/tool/sketchToWeipage',
+	action: apiAction.toolInfo.sketchToWeipage
+},{
+	pathname: '/api/tool/chromeToWeipage',
+	action: apiAction.toolInfo.chromeToWeipage
 }]
 
 module.exports = apiRouter

@@ -50,7 +50,7 @@ var pageVue = new Vue({
 				duration: 0
 			})
 			$.ajax({
-				url: '/api/file/sketchToWeipage',
+				url: '/api/tool/sketchToWeipage',
 				type: 'get',
 				data: {
 					folderName: this.folderName,

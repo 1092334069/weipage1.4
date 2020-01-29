@@ -100,7 +100,7 @@ $('#file').on('change', () => {
 	const formData = new FormData()
 	formData.append('file', file[0].files[0])
 	$.ajax({
-		url: '/api/file/sketchUpload',
+		url: '/api/tool/sketchUpload',
 		type: 'post',
 		data: formData,
 		contentType: false,

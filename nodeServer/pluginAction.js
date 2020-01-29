@@ -1,7 +1,16 @@
 const pluginConfig = require('../plugin/pluginConfig')
 
-// 创建插件列表
-function createPluginList(localKey, scaleplateList, layerList, imageSource, imgFileDir) {
+/* 
+*	sketch创建插件列表
+*	param {
+*		localKey	用户标示
+*		scaleplateList	坐标列表
+*		layerList		图层列表
+*		imageSource		图片资源
+*		imgFileDir		图片资源文件夹
+*	}	
+*/
+function createSketchPluginList(localKey, scaleplateList, layerList, imageSource, imgFileDir) {
 	const pluginList = []
 	for (let i = 0; i < scaleplateList.length; i++) {
 		let height = 0
@@ -36,8 +45,11 @@ function createPluginList(localKey, scaleplateList, layerList, imageSource, imgF
 				pluginStyle['width'] = layerList[i].place.width
 				pluginStyle['height'] = layerList[i].place.height
 				if (imageSource[layerList[i].src]) {
+					pluginStyle['backgroundRepeat'] = 'no-repeat'
+					pluginStyle['backgroundPosition'] = 'center'
 					pluginStyle['backgroundImage'] = imgFileDir + '/' + imageSource[layerList[i].src]
 				}
+				pluginStyle['backgroundColor'] = 'rgba(0,0,0,0)'
 				const panelPlugin = createPanel(localKey, pluginName, pluginStyle)
 				// if (layerList[i].content) {
 				// 	panelPlugin.pluginList.push(createText(localKey, layerList[i].content))
@@ -48,6 +60,10 @@ function createPluginList(localKey, scaleplateList, layerList, imageSource, imgF
 		}
 	}
 	return pluginList
+}
+
+function createChromePluginList(localKey, dataList){
+
 }
 
 let uuIndex = 0
@@ -83,5 +99,5 @@ function createText(localKey, name, style, text) {
 }
 
 module.exports = {
-	createPluginList
+	createSketchPluginList
 }

@@ -92,6 +92,7 @@ class MobileAction {
 	*/
 	doInterfaceListAction(count, list, pluginOption, resCallback) {
 		if (count > 100000 || !list || !list.length) {
+			resCallback()
 			return
 		}
 		const _this = this
@@ -235,7 +236,9 @@ class MobileAction {
 				interfaceList.push(item)
 			}
 		}
-		this.doInterfaceListAction(0, interfaceList, {}, resCallback)
+		if (interfaceList.length) {
+			this.doInterfaceListAction(0, interfaceList, {}, resCallback)
+		}
 	}
 	/* 
 	*	解析请求参数

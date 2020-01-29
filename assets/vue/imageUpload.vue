@@ -69,6 +69,7 @@
 	.upload-btn img{
 		width:68px;
 		height:68px;
+		object-fit:cover;
 	}
 	.btn{
 		cursor:pointer;
