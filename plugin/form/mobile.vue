@@ -3,7 +3,7 @@
 		<select v-if="viewData.base.type === 'select'" :style="parseNormalStyle()" class="form-input" :name="viewData.base.key">
 			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
 		</select>
-		<input v-else :style="parseNormalStyle()" :value="viewData.base.data" class="form-input" :name="viewData.base.key" />
+		<input v-else :style="parseNormalStyle()" :placeholder="viewData.base.data" class="form-input" :name="viewData.base.key" />
 	</div>
 </template>
 

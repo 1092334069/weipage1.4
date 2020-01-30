@@ -1,0 +1,20 @@
+.login-dialog{
+	position:fixed;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	border-radius:12px;
+	background:#f8f8f9;
+	padding:20px 24px;
+	width:320px;
+}
+.login-title{
+	font-size:28px;
+	line-height:48px;
+	color:#333333;
+	padding:10px;
+	text-align:center;
+}
+.submit{
+	text-align:center;
+}

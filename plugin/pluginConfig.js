@@ -53,7 +53,8 @@ const pluginConfig = {
 		},
 		style: {
 			width: 375,
-			height: 40
+			height: 40,
+			border: 'none'
 		}
 	}
 }

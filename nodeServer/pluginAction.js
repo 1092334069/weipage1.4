@@ -62,8 +62,52 @@ function createSketchPluginList(localKey, scaleplateList, layerList, imageSource
 	return pluginList
 }
 
-function createChromePluginList(localKey, dataList){
+function createChromePlugin(localKey, plugin){
+	if (plugin.nodeName === 'SPAN') {
+		return createText(localKey, plugin.data || '', plugin.style)
+	} else if (plugin.nodeName === 'INPUT' || plugin.nodeName === 'SELECT') {
+		return createForm(localKey, plugin.data || '', plugin.style)
+	} else {
+		return createPanel(localKey, plugin.data || '', plugin.style)
+	}
+}
 
+// 创建面板插件
+function createPanel(localKey, data, style) {
+	const plugin = JSON.parse(JSON.stringify(pluginConfig['panel']))
+	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.name = data
+	if (style) {
+		for (let key in style) {
+			plugin.style[key] = style[key]
+		}
+	}
+	return plugin
+}
+
+// 创建文本插件
+function createText(localKey, data, style) {
+	const plugin = JSON.parse(JSON.stringify(pluginConfig['text']))
+	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.data = data
+	if (style) {
+		for (let key in style) {
+			plugin.style[key] = style[key]
+		}
+	}
+	return plugin
+}
+
+// 创建表单插件
+function createForm(localKey, data, style) {
+	const plugin = JSON.parse(JSON.stringify(pluginConfig['form']))
+	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.data = data
+	if (style) {
+		for (let key in style) {
+			plugin.style[key] = style[key]
+		}
+	}
 }
 
 let uuIndex = 0
@@ -75,29 +119,7 @@ function getLocalUuid(localKey) {
 	return 'p' + localKey + timeString + uuIndex
 }
 
-// 创建面板插件
-function createPanel(localKey, name, style) {
-	const plugin = JSON.parse(JSON.stringify(pluginConfig['panel']))
-	plugin['pluginId'] = getLocalUuid(localKey)
-	plugin.base.name = name
-	for (let key in style) {
-		plugin.style[key] = style[key]
-	}
-	return plugin
-}
-
-// 创建文本插件
-function createText(localKey, name, style, text) {
-	const plugin = JSON.parse(JSON.stringify(pluginConfig['text']))
-	plugin['pluginId'] = getLocalUuid(localKey)
-	plugin.base.name = name
-	plugin.base.data = text
-	for (let key in style) {
-		plugin.style[key] = style[key]
-	}
-	return plugin
-}
-
 module.exports = {
-	createSketchPluginList
+	createSketchPluginList,
+	createChromePlugin
 }

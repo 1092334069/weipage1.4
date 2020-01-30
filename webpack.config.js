@@ -6,6 +6,7 @@ const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
+    'login': './src/login/index.js',
   	'weipage/index': './src/weipage/index/index.js',
     'weipage/editMobile': './src/weipage/editMobile/index.js',
     'weipage/list': './src/weipage/list/index.js',
@@ -34,7 +35,7 @@ module.exports = {
       new HtmlWebpackPlugin({
         filename: "login.html",
         template: path.resolve(__dirname, ".", "./src/login/index.html"),
-        chunks: [""],
+        chunks: ["login"],
         minify: {
           collapseWhitespace: true
         }

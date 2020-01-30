@@ -1,6 +1,6 @@
 import 'babel-polyfill'
-import '../../../assets/css/reset.css'
-import '../../../assets/css/table.css'
+import '@assets/css/reset.css'
+import '@assets/css//table.css'
 
 import { weipageAction } from '@assets/js/weipage/weipageAction.js'
 
