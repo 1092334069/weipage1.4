@@ -2,11 +2,26 @@ const pluginAction = require('./pluginAction')
 
 function chromeToWeipage(data, localKey, callback) {
 	const pluginList = []
-	createPlugin(0, data, localKey, pluginList)
+	const style = {}
+	if (data && data.nodeName === 'BODY') {
+		for (let i = 0; i < data.childList.length; i++) {
+			const plugins = []
+			createPlugin(0, data.childList[i], localKey, plugins)
+			if (plugins.length) {
+				pluginList.push(plugins[0])
+			}
+		}
+		for (let key in data.style) {
+			style[key] = data.style[key]
+		}
+	} else {
+		createPlugin(0, data, localKey, pluginList)
+	}
 	callback(JSON.stringify({
 		code: 200,
 		data: {
-			pluginList
+			pluginList,
+			style
 		},
 		message: '生成成功'
 	}))

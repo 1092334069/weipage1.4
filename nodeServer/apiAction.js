@@ -4,6 +4,7 @@ const aesUtil = require('./aesUtil')
 const apiServer = require('./apiServer')
 const fileAction = require('./fileAction')
 const sketchAction = require('./sketchAction')
+const chromeAction = require('./chromeAction')
 
 const imageInfo = {
 	upload: function(parameter, callback) {
@@ -158,7 +159,24 @@ const toolInfo = {
 	},
 	chromeToWeipage: function(parameter, callback) {
 		if (parameter.param.userIdStr) {
-			
+			if (parameter.param.chromeData) {
+				localInfo.getLocalKey(parameter, (r) => {
+					const res = JSON.parse(r)
+					if (res && res.localKey) {
+						chromeAction.chromeToWeipage(parameter.param.chromeData, res.localKey, callback)
+					} else {
+						callback(JSON.stringify({
+							code: 601,
+							message: '密钥丢失'
+						}))
+					}
+				})
+			} else {
+				callback(JSON.stringify({
+					code: 602,
+					message: '缺少参数'
+				}))
+			}
 		} else {
 			callback(JSON.stringify({
 				code: 700,
