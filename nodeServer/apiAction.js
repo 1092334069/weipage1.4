@@ -163,7 +163,7 @@ const toolInfo = {
 				localInfo.getLocalKey(parameter, (r) => {
 					const res = JSON.parse(r)
 					if (res && res.localKey) {
-						chromeAction.chromeToWeipage(parameter.param.chromeData, res.localKey, callback)
+						chromeAction.chromeToWeipage(JSON.parse(parameter.param.chromeData), res.localKey, callback)
 					} else {
 						callback(JSON.stringify({
 							code: 601,
