@@ -11,6 +11,7 @@ function chromeToWeipage(data, localKey, callback) {
 				pluginList.push(plugins[0])
 			}
 		}
+		parseStyle(data.style)
 		for (let key in data.style) {
 			style[key] = data.style[key]
 		}
@@ -32,6 +33,7 @@ function createPlugin(count, data, localKey, pluginList){
 		return
 	}
 	if (data) {
+		parseStyle(data.style)
 		const pluginData = pluginAction.createChromePlugin(localKey, data)
 		if (pluginData) {
 			if (pluginData.pluginList && data.childList && data.childList.length) {
@@ -41,6 +43,12 @@ function createPlugin(count, data, localKey, pluginList){
 			}
 			pluginList.push(pluginData)
 		}
+	}
+}
+
+function parseStyle(style) {
+	if (!style.hasOwnProperty('height')) {
+		style['height'] = 'auto'
 	}
 }
 

@@ -1,0 +1,42 @@
+.login{
+	position: absolute;
+	left: 10px;
+	top: 0;
+	line-height: 50px;
+	color: #ffffff;
+	padding: 0 20px;
+	cursor: pointer;
+	z-index:10;
+}
+.head{
+	height: 50px;
+	padding: 10px;
+	position: relative;
+	background-color: #2d8cf0;
+}
+.head .head-menu{
+	height: 50px;
+	line-height: 50px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+}
+.head-menu li{
+	margin: 0 12px;
+	font-size: 18px;
+	color: #ffffff;
+	cursor: pointer;
+	display: inline-block;
+}
+.head-menu a{
+	display: inline-block;
+	padding: 0 20px;
+}
+.banner{
+	width: 100%;
+	text-align: center;
+	background-color: #74c0f2;
+}
+.banner img{
+	width: 980px;
+}

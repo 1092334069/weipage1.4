@@ -22,6 +22,7 @@ var login = new Vue({
 				success: (res) => {
 					if (res.code === 200) {
 						this.$Message.success(res.message)
+						window.location.href = '/index'
 					} else {
 						this.$Message.error(res.message)
 					}

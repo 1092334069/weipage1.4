@@ -4,9 +4,24 @@
 		<title>首页</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../assets/css/iview/iview.css">
+		<script src="../assets/js/jquery-1.12.4.min.js"></script>
+		<script src="../assets/js/vue.js"></script>
+		<script src="../assets/js/iview.min.js"></script>
 	</head>
 	<body>
-		<p><a href="/login">登录</a></p>
-		<p><a href="/weipage/list">微页面列表</a></p>
+		<div id="indexPage">
+			<a v-if="!isLogin" class="login" href="/login">登录</a>
+			<div class="head">
+				<ul class="head-menu">
+					<li v-if="isLogin"><a href="/weipage/list">微页面</a></li>
+					<li><a>微商城</a></li>
+					<li><a>微兼职</a></li>
+				</ul>
+			</div>
+			<div class="banner">
+				<img src="../../assets/img/index/banner.jpeg" />
+			</div>
+		</div>
 	</body>
 </html>
