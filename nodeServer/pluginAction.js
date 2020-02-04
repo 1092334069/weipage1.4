@@ -67,6 +67,8 @@ function createChromePlugin(localKey, plugin){
 		return createText(localKey, plugin.data || '', plugin.style)
 	} else if (plugin.nodeName === 'INPUT' || plugin.nodeName === 'SELECT') {
 		return createForm(localKey, plugin.data || '', plugin.style)
+	} else if (plugin.nodeName === 'IMG') {
+		return createImage(localKey, plugin.data || '', plugin.style)
 	} else {
 		return createPanel(localKey, plugin.data || '', plugin.style)
 	}
@@ -87,6 +89,9 @@ function createPanel(localKey, data, style) {
 
 // 创建文本插件
 function createText(localKey, data, style) {
+	if (!data) {
+		return false
+	}
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['text']))
 	plugin['pluginId'] = getLocalUuid(localKey)
 	plugin.base.data = data
@@ -101,6 +106,18 @@ function createText(localKey, data, style) {
 // 创建表单插件
 function createForm(localKey, data, style) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['form']))
+	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.data = data
+	if (style) {
+		for (let key in style) {
+			plugin.style[key] = style[key]
+		}
+	}
+}
+
+// 创建图片插件
+function createImage(localKey, data, style) {
+	const plugin = JSON.parse(JSON.stringify(pluginConfig['image']))
 	plugin['pluginId'] = getLocalUuid(localKey)
 	plugin.base.data = data
 	if (style) {
