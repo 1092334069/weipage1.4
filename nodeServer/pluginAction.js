@@ -24,7 +24,7 @@ function createSketchPluginList(localKey, scaleplateList, layerList, imageSource
 			height,
 			position: 'relative'
 		}
-		const panelPlugin = createPanel(localKey, '面板', style)
+		const panelPlugin = createPanel(localKey, '面板', '面板', style)
 		pluginList.push(panelPlugin)
 	}
 	for (let i = 0; i < layerList.length; i++) {
@@ -50,7 +50,7 @@ function createSketchPluginList(localKey, scaleplateList, layerList, imageSource
 					pluginStyle['backgroundImage'] = imgFileDir + '/' + imageSource[layerList[i].src]
 				}
 				pluginStyle['backgroundColor'] = 'rgba(0,0,0,0)'
-				const panelPlugin = createPanel(localKey, pluginName, pluginStyle)
+				const panelPlugin = createPanel(localKey, '', pluginName, pluginStyle)
 				// if (layerList[i].content) {
 				// 	panelPlugin.pluginList.push(createText(localKey, layerList[i].content))
 				// }
@@ -63,22 +63,32 @@ function createSketchPluginList(localKey, scaleplateList, layerList, imageSource
 }
 
 function createChromePlugin(localKey, plugin){
-	if (plugin.nodeName === 'SPAN') {
-		return createText(localKey, plugin.data || '', plugin.style)
+	if (plugin.nodeName === 'SPAN' && plugin.data) {
+		if (plugin.childList.length) {
+			const panel = createPanel(localKey, plugin.className, plugin.data || '', plugin.style)
+			if (plugin.data) {
+				panel.pluginList.push(createText(localKey, plugin.className, plugin.data || '', plugin.style))
+			}
+			for (let i = 0; i < plugin.childList.length; i++) {
+				panel.pluginList.push(createText(localKey, plugin.childList[i].className, plugin.childList[i].data || '', plugin.childList[i].style))
+			}
+			return panel
+		}
+		return createText(localKey, plugin.className, plugin.data || '', plugin.style)
 	} else if (plugin.nodeName === 'INPUT' || plugin.nodeName === 'SELECT') {
-		return createForm(localKey, plugin.data || '', plugin.style)
+		return createForm(localKey, plugin.className, plugin.data || '', plugin.style)
 	} else if (plugin.nodeName === 'IMG') {
-		return createImage(localKey, plugin.data || '', plugin.style)
+		return createImage(localKey, plugin.className, plugin.data || '', plugin.style)
 	} else {
-		return createPanel(localKey, plugin.data || '', plugin.style)
+		return createPanel(localKey, plugin.className, plugin.data || '', plugin.style)
 	}
 }
 
 // 创建面板插件
-function createPanel(localKey, data, style) {
+function createPanel(localKey, name, data, style) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['panel']))
 	plugin['pluginId'] = getLocalUuid(localKey)
-	plugin.base.name = data
+	plugin.base.name = name
 	if (style) {
 		for (let key in style) {
 			plugin.style[key] = style[key]
@@ -88,12 +98,10 @@ function createPanel(localKey, data, style) {
 }
 
 // 创建文本插件
-function createText(localKey, data, style) {
-	if (!data) {
-		return false
-	}
+function createText(localKey, name, data, style) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['text']))
 	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.name = name
 	plugin.base.data = data
 	if (style) {
 		for (let key in style) {
@@ -104,27 +112,31 @@ function createText(localKey, data, style) {
 }
 
 // 创建表单插件
-function createForm(localKey, data, style) {
+function createForm(localKey, name, data, style) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['form']))
 	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.name = name
 	plugin.base.data = data
 	if (style) {
 		for (let key in style) {
 			plugin.style[key] = style[key]
 		}
 	}
+	return plugin
 }
 
 // 创建图片插件
-function createImage(localKey, data, style) {
+function createImage(localKey, name, data, style) {
 	const plugin = JSON.parse(JSON.stringify(pluginConfig['image']))
 	plugin['pluginId'] = getLocalUuid(localKey)
+	plugin.base.name = name
 	plugin.base.data = data
 	if (style) {
 		for (let key in style) {
 			plugin.style[key] = style[key]
 		}
 	}
+	return plugin
 }
 
 let uuIndex = 0
