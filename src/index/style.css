@@ -40,3 +40,43 @@
 .banner img{
 	width: 980px;
 }
+.title{
+	padding: 20px 32px;
+	font-size: 24px;
+	line-height: 48px;
+	background-color: #2d8cf0;
+	color: #ffffff;
+}
+.tool{
+	display: flex;
+	justify-content: space-around;
+	padding: 8px;
+}
+.tool li{
+	width: 200px;
+	font-size: 16px;
+	text-align: center;
+}
+.tool .tool-logo{
+	width: 100px;
+	height: 100px;
+}
+.tool .tool-name{
+	margin-top: 10px;
+}
+.tool .button-list{
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-around;
+}
+.button-list .button{
+	width: 80px;
+	height: 30px;
+	border-radius: 4px;
+	background-color: #74c0f2;
+	color: #ffffff;
+	line-height: 30px;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+}

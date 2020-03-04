@@ -67,6 +67,6 @@
 	position: relative;
 }
 .panel{
-	min-height: 95vh;
+	min-height: calc(100vh - 48px);
 }
 </style>
