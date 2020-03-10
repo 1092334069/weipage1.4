@@ -1,3 +1,5 @@
+const request = require('request')
+const FormData = require('form-data')
 const fs = require('fs')
 const formidable = require('formidable')
 const path = require("path")
@@ -58,24 +60,27 @@ function sketchUpload(req, userIdStr, callback) {
 	}
 }
 
-function fileUpload(req, callback, errCallback) {
-	var form = new multiparty.Form()
+function fileUpload(req, callback) {
+	const form = new multiparty.Form()
 	form.parse(req, function (err, fields, files) {
 		if (!files) {
-			errCallback()
+			callback(JSON.stringify({code: 500, message: '文件上传失败' }))
 			return
 		}
-		for(let file in files) {
-			for (let idx = 0; idx < files[file].length; idx++) {
-				// fs.readFile(files[file][idx].path, (err, bufferData) => {
-				// 	if (err) {
-				// 		errCallback()
-				// 	} else {
-				// 		callback(file, bufferData)
-				// 	}
-				// })
-				callback(file, files[file][idx].path)
-			}
+		if(files.file && files.file.length) {
+			const file = files.file[0]
+			request.post({
+				url: 'http://8.129.1.232/api/common/upload',
+				formData: {
+					file: fs.createReadStream(file.path),
+				},
+			}, (error, response, body) => {
+				if (error) {
+					callback(JSON.stringify({code: 501, message: '文件上传失败' }))
+					return
+				}
+				callback(body)
+			})
 		}
 	})
 }

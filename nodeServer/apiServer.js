@@ -81,7 +81,7 @@ function serverRequest(parameter, callback) {
 }
 
 function javaServerRequest(parameter, callback) {
-	const apiHttpUrl = '120.78.88.54'
+	const apiHttpUrl = '8.129.1.232'
 	const port = 80
 	if (parameter.method === 'POST') {
 		httpPost(apiHttpUrl, port, parameter, (res) => {

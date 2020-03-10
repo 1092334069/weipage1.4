@@ -8,14 +8,7 @@ const chromeAction = require('./chromeAction')
 
 const imageInfo = {
 	upload: function(parameter, callback) {
-		fileAction.fileUpload(parameter.req, (file, path) => {
-			let formdata = new FormData()
-			console.log(fs.createReadStream(path))
-			formdata.append('file', fs.createReadStream(path))
-			parameter.param = formdata
-			console.log(parameter.param);
-			apiServer.javaServerRequest(parameter, callback)
-		}, callback)
+		fileAction.fileUpload(parameter.req, callback)
 	},
 	insert: function(parameter, callback) {
 		apiServer.serverRequest(parameter, callback)
@@ -27,7 +20,7 @@ const imageInfo = {
 		apiServer.serverRequest(parameter, callback)
 	},
 	getPageList: function(parameter, callback) {
-		apiServer.serverRequest(parameter, callback)
+		apiServer.javaServerRequest(parameter, callback)
 	}
 }
 
