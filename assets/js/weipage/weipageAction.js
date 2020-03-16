@@ -92,6 +92,8 @@ class WeipageAction {
 			success: (res) => {
 				if (res && res.code === 200 && res.data) {
 					callback(res.data)
+				} else if (res && res.code === 700) {
+					window.location.href = '/login'
 				}
 			}
 		})
