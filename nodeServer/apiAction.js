@@ -20,7 +20,7 @@ const imageInfo = {
 		apiServer.serverRequest(parameter, callback)
 	},
 	getPageList: function(parameter, callback) {
-		apiServer.javaServerRequest(parameter, callback)
+		apiServer.serverRequest(parameter, callback)
 	}
 }
 

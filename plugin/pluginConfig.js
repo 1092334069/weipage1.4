@@ -11,7 +11,8 @@ const pluginConfig = {
 		style: {
 			width: 375,
 			height: 80,
-			backgroundColor: '#ffffff'
+			backgroundColor: '#ffffff',
+			diaplay: 'inline-block'
 		},
 		event: {
 			eventList: []

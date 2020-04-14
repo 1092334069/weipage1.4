@@ -11,11 +11,11 @@ class ImageAction {
 	getImageList() {
 		const _this = this
 		$.ajax({
-			url: '/api/common/upload/list',
+			url: '/api/image/getPageList',
 			type: 'get',
 			data: {
 				page: _this.weiPageThis.imageTabelData.page,
-				pageSize: _this.weiPageThis.imageTabelData.size
+				size: _this.weiPageThis.imageTabelData.size
 			},
 			dataType: 'json',
 			success: (res) => {
