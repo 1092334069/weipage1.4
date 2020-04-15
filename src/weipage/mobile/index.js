@@ -91,8 +91,10 @@ var weipage = new Vue({
 		// 初始化微页面
 		initWeipage() {
 			const staticPluginList = JSON.parse(JSON.stringify(this.staticPluginList))
+			console.log(staticPluginList)
 			mobileAction.initPluginList(staticPluginList)
 			this.pluginList = mobileAction.fissionData(staticPluginList)
+			console.log(this.pluginList)
 		}
 	}
 })

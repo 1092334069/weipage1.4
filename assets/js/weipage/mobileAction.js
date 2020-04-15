@@ -528,7 +528,7 @@ class MobileAction {
 	*/
 	createIndexs(option, indexs) {
 		if (option['indexs']) {
-			option['indexs'] += `${indexs},`
+			option['indexs'] += `,${indexs}`
 		} else {
 			option['indexs'] = indexs
 		}
