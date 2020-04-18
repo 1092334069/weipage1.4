@@ -25,7 +25,10 @@ body{
 	cursor:move;
 	display:none;
 }
-.plugin:hover .drop-icon{
+.plugin:hover{
+	box-shadow: 0 0 1px #138ed4 inset;
+}
+.plugin:hover>.drop-icon{
 	display:inline-block;
 }
 .plugin .resize-icon{
@@ -36,6 +39,6 @@ body{
 	cursor:se-resize;
 	display:none;
 }
-.plugin:hover .resize-icon{
+.plugin:hover>.resize-icon{
 	display:inline-block;
 }
