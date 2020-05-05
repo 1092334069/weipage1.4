@@ -44,8 +44,8 @@
 						:baseData="editForm.base"
 						:weipageData="weipage"
 						@openInterfaceModel="openInterfaceModel"
-						@open-plugin-tree-model="openPluginTreeModel"
-						@openPluginTreeModel="openInterfaceTreeModel"
+						@openPluginTreeModel="openPluginTreeModel"
+						@openInterfaceTreeModel="openInterfaceTreeModel"
 						@openFormTreeModel="openFormTreeModel">
 					</panelEventForm>
 				</div>

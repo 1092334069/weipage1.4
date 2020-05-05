@@ -13,7 +13,7 @@ const apiRouter = [{
 	pathname: '/api/image/detail',
 	action: apiAction.imageInfo.detail
 },{
-	pathname: '/api/image/getPageList',
+	pathname: '/api/common/upload/list',
 	action: apiAction.imageInfo.getPageList
 },{
 	pathname: '/api/interface/insert',

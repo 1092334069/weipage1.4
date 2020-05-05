@@ -2,7 +2,7 @@
 	<div>
 		<ul class="image-model-list">
 			<li v-for="item in imageList" class="image-model-item">
-				<img :src="item.url" @click="imageModelSelect(item.url)" />
+				<img :src="item.uri" @click="imageModelSelect(item.uri)" />
 				<Icon class="delete" type="ios-close-circle-outline" size="12" />
 			</li>
 		</ul>
@@ -54,6 +54,7 @@
 	width:100%;
 	height:100%;
 	cursor:pointer;
+	object-fit:cover;
 }
 .image-model-item .delete{
 	position:absolute;
