@@ -124,7 +124,7 @@
 			},
 			addAction: function() {
 				const actionList = this.formData.actionList
-				const uuid = getLocalUuid()
+				const uuid = getLocalUuid('action')
 				actionList.push({
 					actionId: uuid,
 					indexs: '',

@@ -131,8 +131,15 @@ class MobileAction {
 	*/
 	doAction(actionItem){
 		let actionData = ''
-		if (actionItem.action.type === 'interface') {
+		const actionType = actionItem.action.type
+		if (actionType === 'interface') {
 			actionData = this.getInterfaceKeyData(actionItem.action.value.url, actionItem.action.value.keyList, actionItem.indexs)
+		} else if (actionType === 'static') {
+			actionData = actionItem.action.value
+		} else if (actionType = 'url') {
+			actionData = this.getQueryParam(actionItem.action.value)
+		} else if (actionType = 'sessionStorage') {
+			actionData = sessionStorage[actionItem.action.value] || ''
 		}
 		if (actionItem.action.namespace && actionItem.action.key) {
 			if (actionItem.action.namespace === 'base') {
@@ -148,7 +155,7 @@ class MobileAction {
 	doActionOne(actionId, indexs) {
 		for (let i = 0; i < this.actionDataList.length; i++) {
 			const actionItem = this.actionDataList[i]
-			if (actionItem.action && actionItem.actionId === actionId && actionItem.indexs && actionItem.indexs === actionItem) {
+			if (actionItem.action && actionItem.actionId === actionId && actionItem.indexs === indexs) {
 				this.doAction(actionItem)
 			}
 		}
