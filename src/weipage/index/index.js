@@ -328,6 +328,7 @@ $('#file').on('change', () => {
 		dataType: 'json',
 		success: function(res) {
 			$('#file').val('')
+			imageAction.getImageList()
 		},
 		error: function() {
 			$('#file').val('')
