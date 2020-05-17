@@ -79,4 +79,9 @@
 	font-size: 14px;
 	text-align: center;
 	cursor: pointer;
+	display: inline-block;
+}
+.button-list .button.disable{
+	background-color: #e5e5e5;
+	cursor: not-allowed;
 }

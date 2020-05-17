@@ -4,19 +4,22 @@
 		<title>首页</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<style type="text/css">
+			[v-cloak]{
+				opacity:0;
+			}
+		</style>
 		<link rel="stylesheet" href="../assets/css/iview/iview.css">
 		<script src="../assets/js/jquery-1.12.4.min.js"></script>
 		<script src="../assets/js/vue.js"></script>
 		<script src="../assets/js/iview.min.js"></script>
 	</head>
 	<body>
-		<div id="indexPage">
+		<div id="indexPage" v-cloak>
 			<a v-if="!isLogin" class="login" href="/login">登录</a>
 			<div class="head">
 				<ul class="head-menu">
 					<li v-if="isLogin"><a href="/weipage/list">微页面</a></li>
-					<li><a>微商城</a></li>
-					<li><a>微兼职</a></li>
 				</ul>
 			</div>
 			<div class="banner">
@@ -28,24 +31,24 @@
 					<img class="tool-logo" src="../../assets/img/index/chrome.jpeg" />
 					<p class="tool-name">谷歌浏览器插件</p>
 					<div class="button-list">
-						<div class="button">下载</div>
-						<div class="button">使用教程</div>
+						<a class="button" href="https://github.com/1092334069/chromeExtension">下载</a>
+						<div class="button disable">使用教程</div>
 					</div>
 				</li>
 				<li>
 					<img class="tool-logo" src="../../assets/img/index/sketch.jpeg" />
 					<p class="tool-name">sketch插件</p>
 					<div class="button-list">
-						<div class="button">下载</div>
-						<div class="button">使用教程</div>
+						<a class="button" href="https://github.com/1092334069/sketchToWeipage">下载</a>
+						<div class="button disable">使用教程</div>
 					</div>
 				</li>
 				<li>
 					<img class="tool-logo" src="../../assets/img/index/photoshop.jpeg" />
 					<p class="tool-name">photoshop插件</p>
 					<div class="button-list">
-						<div class="button">下载</div>
-						<div class="button">使用教程</div>
+						<div class="button disable">下载</div>
+						<div class="button disable">使用教程</div>
 					</div>
 				</li>
 			</ul>
