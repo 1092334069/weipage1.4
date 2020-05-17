@@ -8,7 +8,6 @@
 				<RadioGroup v-model="formData.type">
 					<Radio label="normal">普通</Radio>
 					<Radio label="list">列表</Radio>
-					<Radio label="swiper">轮播</Radio>
 				</RadioGroup>
 			</FormItem>
 		</Form>
