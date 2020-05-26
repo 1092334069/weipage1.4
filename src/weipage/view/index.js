@@ -8,3 +8,10 @@ const weipageId = commonAction.getQueryString('weipageId')
 if (weipageId) {
 	$('#weipageView').attr('src', `/weipage/mobile?weipageId=${weipageId}`)
 }
+
+new Vue({
+	el: '#weipage',
+	data() {
+		return {}
+	}
+})

@@ -25,6 +25,7 @@
 	position: fixed;
 	right: 0;
 	top: 0;
+	opacity: 0.5;
 }
 .export-list li{
 	width: 200px;

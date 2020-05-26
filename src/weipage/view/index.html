@@ -8,6 +8,7 @@
 			}
 		</style>
 		<script src="../../assets/js/jquery-1.12.4.min.js"></script>
+		<script src="../../assets/js/vue.js"></script>
 	</head>
 	<body>
 		<div class="view-page">
@@ -15,20 +16,22 @@
 			<div class="view-page-content">
 				<iframe id="weipageView" src="/weipage/mobile"></iframe>
 			</div>
-			<ul class="export-list">
-				<li>
-					<img class="export-logo" src="../../../assets/img/weipage/html5.jpeg" />
-					<p class="export-name">导出h5</p>
-				</li>
-				<li>
-					<img class="export-logo" src="../../../assets/img/weipage/wechat.jpeg" />
-					<p class="export-name">导出微信小程序</p>
-				</li>
-				<li>
-					<img class="export-logo" src="../../../assets/img/weipage/zhifubao.jpeg" />
-					<p class="export-name">导出支付宝小程序</p>
-				</li>
-			</ul>
+			<div id="weipage" v-cloak>
+				<ul class="export-list">
+					<li>
+						<img class="export-logo" src="../../../assets/img/weipage/html5.jpeg" title="敬请期待" />
+						<p class="export-name">导出h5</p>
+					</li>
+					<li>
+						<img class="export-logo" src="../../../assets/img/weipage/wechat.jpeg" title="敬请期待" />
+						<p class="export-name">导出微信小程序</p>
+					</li>
+					<li>
+						<img class="export-logo" src="../../../assets/img/weipage/zhifubao.jpeg" title="敬请期待" />
+						<p class="export-name">导出支付宝小程序</p>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<script>
 			function pageReload(r) {
